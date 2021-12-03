@@ -32,6 +32,7 @@ function activate(app: JupyterFrontEnd, statusbar: IStatusBar) {
   statusbar.registerStatusItem('hello', {
     align: 'left',
     item: statusWidget,
+    rank: 5
   });
 }
 
@@ -39,7 +40,7 @@ const extension: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab_doclink',
   autoStart: true,
   requires: [IStatusBar],
-  activate: activate,
+  activate: activate
 };
 
 export default extension;
