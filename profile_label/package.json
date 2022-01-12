@@ -1,56 +1,54 @@
 {
-  "name": "@jupyterlab-examples/server-extension",
+  "name": "profile-label",
   "version": "0.1.0",
-  "description": "A minimal JupyterLab extension with backend and frontend parts.",
+  "description": "A JupyterLab extension for OpenSARlab that provides the current profile label to the frontend.",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/jupyterlab/extension-examples",
+  "homepage": "https://github.com/ASFOpenSARlab/opensarlab-extensions",
   "bugs": {
-    "url": "https://github.com/jupyterlab/extension-examples/issues"
+    "url": "https://github.com/ASFOpenSARlab/opensarlab-extensions/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
-    "name": "Project Jupyter Contributors",
-    "email": ""
+    "name": "ASF OpenSARlab Team",
+    "email": "aflewandowski@alaska.edu"
   },
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
-    "style/**/*.{css,eot,js,gif,html,jpg,json,png,svg,woff2,ttf}"
+    "style/**/*.{css,js,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jupyterlab/extension-examples.git"
+    "url": "https://github.com/ASFOpenSARlab/opensarlab-extensions.git"
   },
   "scripts": {
     "build": "jlpm run build:lib && jlpm run build:labextension:dev",
-    "build:all": "jlpm run build:lib && jlpm run build:labextension",
+    "build:prod": "jlpm run clean && jlpm run build:lib && jlpm run build:labextension",
     "build:labextension": "jupyter labextension build .",
     "build:labextension:dev": "jupyter labextension build --development True .",
     "build:lib": "tsc",
-    "build:prod": "jlpm run clean && jlpm run build:lib && jlpm run build:labextension",
     "clean": "jlpm run clean:lib",
-    "clean:all": "jlpm run clean:lib && jlpm run clean:labextension",
-    "clean:labextension": "rimraf jlab_ext_example/labextension",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
+    "clean:labextension": "rimraf profile_label/labextension",
+    "clean:all": "jlpm run clean:lib && jlpm run clean:labextension",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
     "install:extension": "jlpm run build",
-    "prepare": "jlpm run clean && jlpm run build:prod",
     "watch": "run-p watch:src watch:labextension",
-    "watch:labextension": "jupyter labextension watch .",
-    "watch:src": "tsc -w"
+    "watch:src": "tsc -w",
+    "watch:labextension": "jupyter labextension watch ."
   },
   "dependencies": {
     "@jupyterlab/application": "^3.1.0",
-    "@jupyterlab/services": "^6.1.0",
-    "@lumino/widgets": "^1.31.0",
-    "jupyterlab-topbar": "^0.6.0"
+    "@jupyterlab/coreutils": "^5.1.0",
+    "@jupyterlab/services": "^6.1.0"
+
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.1.0",
@@ -58,10 +56,8 @@
     "@typescript-eslint/parser": "^4.8.1",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-jsdoc": "^36.0.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.18.3",
-    "mkdirp": "^1.0.3",
+    "eslint-plugin-prettier": "^3.1.4", 
+    "mkdirp": "^1.0.3", 
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.1",
     "rimraf": "^3.0.2",
@@ -71,19 +67,30 @@
     "style/*.css",
     "style/index.js"
   ],
-  "jupyterlab": {
-    "discovery": {
-      "server": {
-        "managers": [
-          "pip"
-        ],
-        "base": {
-          "name": "jlab_ext_example"
-        }
-      }
-    },
-    "extension": true,
-    "outputDir": "jlab_ext_example/labextension"
+  "styleModule": "style/index.js",
+  "publishConfig": {
+    "access": "public"
   },
-  "styleModule": "style/index.js"
+  "jupyterlab": { 
+    "discovery": {
+        "server": {
+          "managers": [
+            "pip"
+          ],
+          "base": {
+            "name": "profile_label"
+          }
+        }
+    }, 
+    "extension": true,
+    "outputDir": "profile_label/labextension"
+  },
+  "jupyter-releaser": {
+    "hooks": {
+      "before-build-npm": [
+        "python -m pip install jupyterlab~=3.1",
+        "jlpm"
+      ]
+    }
+  }
 }

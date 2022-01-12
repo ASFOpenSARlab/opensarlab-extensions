@@ -1,5 +1,5 @@
 """
-jlab_ext_example setup
+profile_label setup
 """
 import json
 import sys
@@ -10,7 +10,7 @@ import setuptools
 HERE = Path(__file__).parent.resolve()
 
 # The name of the project
-name = "jlab_ext_example"
+name = "profile_label"
 
 lab_path = (HERE / name.replace("-", "_") / "labextension")
 
@@ -20,37 +20,43 @@ ensured_targets = [
     str(lab_path / "static/style.js")
 ]
 
-labext_name = "@jupyterlab-examples/server-extension"
+labext_name = "profile-label"
 
 data_files_spec = [
     ("share/jupyter/labextensions/%s" % labext_name, str(lab_path.relative_to(HERE)), "**"),
     ("share/jupyter/labextensions/%s" % labext_name, str("."), "install.json"),
     ("etc/jupyter/jupyter_server_config.d",
-     "jupyter-config/server-config", "jlab_ext_example.json"),
+     "jupyter-config/server-config", "profile_label.json"),
     # For backward compatibility with notebook server
     ("etc/jupyter/jupyter_notebook_config.d",
-     "jupyter-config/nb-config", "jlab_ext_example.json"),
+     "jupyter-config/nb-config", "profile_label.json"),
 ]
 
 long_description = (HERE / "README.md").read_text()
 
 # Get the package info from package.json
 pkg_json = json.loads((HERE / "package.json").read_bytes())
+version = (
+    pkg_json["version"]
+    .replace("-alpha.", "a")
+    .replace("-beta.", "b")
+    .replace("-rc.", "rc")
+) 
 
 setup_args = dict(
     name=name,
-    version=pkg_json["version"],
+    version=version,
     url=pkg_json["homepage"],
     author=pkg_json["author"]["name"],
     author_email=pkg_json["author"]["email"],
     description=pkg_json["description"],
     license=pkg_json["license"],
+    license_file="LICENSE",
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=setuptools.find_packages(),
     install_requires=[
-        "jupyter_server>=1.6,<2",
-        "jupyterlab-topbar"
+        "jupyter_server>=1.6,<2"
     ],
     zip_safe=False,
     include_package_data=True,
@@ -65,7 +71,12 @@ setup_args = dict(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Framework :: Jupyter",
+        "Framework :: Jupyter :: JupyterLab",
+        "Framework :: Jupyter :: JupyterLab :: 3",
+        "Framework :: Jupyter :: JupyterLab :: Extensions",
+        "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
     ],
 )
 

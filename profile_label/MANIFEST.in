@@ -1,19 +1,21 @@
 include LICENSE
-include README.md
+include *.md
 include pyproject.toml
-
 recursive-include jupyter-config *.json
 
 include package.json
+include install.json
 include ts*.json
-graft jlab_ext_example/labextension
-graft jlab_ext_example/public
+include yarn.lock
+
+graft profile_label/labextension
 
 # Javascript files
 graft src
 graft style
 prune **/node_modules
 prune lib
+prune binder
 
 # Patterns to exclude from any directory
 global-exclude *~
