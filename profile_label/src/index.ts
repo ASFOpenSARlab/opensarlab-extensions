@@ -6,122 +6,38 @@ import {
 import { ITopBar } from 'jupyterlab-topbar';
 import { Widget } from '@lumino/widgets';
 
-import { ICommandPalette, IFrame } from '@jupyterlab/apputils';
-
-import { PageConfig } from '@jupyterlab/coreutils';
-
-import { ILauncher } from '@jupyterlab/launcher';
-
 import { requestAPI } from './handler';
 
-/**
- * The command IDs used by the server extension plugin.
- */
-namespace CommandIDs {
-  export const get = 'server:get-file';
-}
-
-/**
- * Initialization data for the server-extension-example extension.
- */
-const extension: JupyterFrontEndPlugin<void> = {
-  id: 'server-extension-example',
-  autoStart: true,
-  optional: [ILauncher],
-  requires: [ICommandPalette],
-  activate: async (
-    app: JupyterFrontEnd,
-    palette: ICommandPalette,
-    launcher: ILauncher | null
-  ) => {
-    console.log('JupyterLab extension server-extension-example is activated!');
-
-    // GET request
-    try {
-      const data = await requestAPI<any>('hello');
-      console.log(data);
-    } catch (reason) {
-      console.error(`Error on GET /jlab-ext-example/hello.\n${reason}`);
-    }
-
-    // POST request
-    const dataToSend = { name: 'George' };
-    try {
-      const reply = await requestAPI<any>('hello', {
-        body: JSON.stringify(dataToSend),
-        method: 'POST',
-      });
-      console.log(reply);
-    } catch (reason) {
-      console.error(
-        `Error on POST /jlab-ext-example/hello ${dataToSend}.\n${reason}`
-      );
-    }
-
-    const { commands, shell } = app;
-    const command = CommandIDs.get;
-    const category = 'Extension Examples';
-
-    commands.addCommand(command, {
-      label: 'Get Server Content in a IFrame Widget',
-      caption: 'Get Server Content in a IFrame Widget',
-      execute: () => {
-        const widget = new IFrameWidget();
-        shell.add(widget, 'main');
-      },
-    });
-
-    palette.addItem({ command, category: category });
-
-    if (launcher) {
-      // Add launcher
-      launcher.add({
-        command: command,
-        category: category,
-      });
-    }
-  },
-};
-
-// export default extension;
-
-class IFrameWidget extends IFrame {
-  constructor() {
-    super();
-    const baseUrl = PageConfig.getBaseUrl();
-    this.url = baseUrl + 'jlab-ext-example/public/index.html';
-    this.id = 'doc-example';
-    this.title.label = 'Server Doc';
-    this.title.closable = true;
-    this.node.style.overflowY = 'auto';
-  }
-}
-
-class DocsAnchorWidget extends Widget {
+class ProfileLabelWidget extends Widget {
   constructor() {
     super();
 
-    this.hyperlink = document.createElement('a');
-    this.hyperlink.text = 'OpenSARlab Docs';
-    this.hyperlink.href =
-      'https://opensarlab-docs.asf.alaska.edu/user-guides/how_to_run_a_notebook/';
-    this.hyperlink.target = 'blank';
-    this.addClass('docs-anchor-widget');
-
-    this.node.appendChild(this.hyperlink);
+    this.span = document.createElement('span');
+    this.addClass('profile-label-widget');
+    this.node.appendChild(this.span);
   }
 
-  readonly hyperlink: HTMLAnchorElement;
+  readonly span: HTMLSpanElement;
 }
 
 const link_extension: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab-topbar-doclink',
   autoStart: true,
   requires: [ITopBar],
-  activate: (app: JupyterFrontEnd, topBar: ITopBar) => {
-    const docLinkWidget = new DocsAnchorWidget();
-    topBar.addItem('doc_link', docLinkWidget);
+  activate: async (app: JupyterFrontEnd, topBar: ITopBar) => {
+
+    let data = null;
+    try {
+        data = await requestAPI<any>('profile-label');
+        console.log(data);
+    } catch (reason) {
+        console.error(`Error on GET /jlab-ext-example/profile-label.\n${reason}`);
+    }
+
+    const profileLabelWidget = new ProfileLabelWidget();
+    profileLabelWidget.span.innerText = data['data'];
+    topBar.addItem('profile_label', profileLabelWidget);
   },
 };
 
-export { link_extension as default, extension };
+export default link_extension;
