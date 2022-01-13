@@ -17,7 +17,7 @@ export async function requestAPI<T>(
   const settings = ServerConnection.makeSettings();
   const requestUrl = URLExt.join(
     settings.baseUrl,
-    'profile-label', // API Namespace
+    'profile-label-ext', // API Namespace
     endPoint
   );
 
@@ -31,7 +31,7 @@ export async function requestAPI<T>(
   const data = await response.json();
 
   if (!response.ok) {
-    throw new ServerConnection.ResponseError(response, data.message || data);
+    throw new ServerConnection.ResponseError(response, data.message);
   }
 
   return data;

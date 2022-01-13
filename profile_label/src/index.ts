@@ -20,31 +20,26 @@ class ProfileLabelWidget extends Widget {
   readonly span: HTMLSpanElement;
 }
 
-const link_extension: JupyterFrontEndPlugin<void> = {
-  id: 'jupyterlab-topbar-doclink',
+const profile_label_extension: JupyterFrontEndPlugin<void> = {
+  id: 'jupyterlab-topbar-profile-label',
   autoStart: true,
   requires: [ITopBar],
   activate: async (app: JupyterFrontEnd, topBar: ITopBar) => {
-
     let data = null;
     try {
-        data = await requestAPI<any>('profile-label');
-        console.log(data);
+      data = await requestAPI<any>('profile-label');
+      console.log(data);
     } catch (reason) {
-        console.error(`Error on GET /jlab-ext-example/profile-label.\n${reason}`);
+      console.error(`Error on GET /jlab-ext-example/profile-label.\n${reason}`);
     }
 
     const profileLabelWidget = new ProfileLabelWidget();
     profileLabelWidget.span.innerText = data['data'];
     topBar.addItem('profile_label', profileLabelWidget);
-  },
+  }
 };
 
-export default link_extension;
-
-
-
-
+export default profile_label_extension;
 
 // /**
 //  * Initialization data for the profile-label extension.

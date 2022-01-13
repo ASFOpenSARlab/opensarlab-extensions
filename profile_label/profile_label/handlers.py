@@ -1,8 +1,10 @@
 import os
 import json
 
-from jupyter_server.base.handlers import APIHandler
-from jupyter_server.utils import url_path_join
+# from jupyter_server.base.handlers import APIHandler
+from notebook.base.handlers import APIHandler
+# from jupyter_server.utils import url_path_join
+from notebook.utils import url_path_join
 
 import tornado
 from tornado.web import StaticFileHandler
@@ -13,7 +15,7 @@ class RouteHandler(APIHandler):
     # Jupyter server
     @tornado.web.authenticated
     def get(self):
-        profile_name = os.environ.get('opensarlab_profile_name', 'No "opensarlab_profile_name" Env Var found!')
+        profile_name = os.environ.get('opensarlab_profile_name', 'Hello!')
         self.finish(json.dumps({"data": profile_name}))
 
 
@@ -29,7 +31,7 @@ def setup_handlers(web_app, url_path):
     # Prepend the base_url so that it works in a JupyterHub setting
     doc_url = url_path_join(base_url, url_path, "public")
     doc_dir = os.getenv(
-        "JLAB_SERVER_EXAMPLE_STATIC_DIR",
+        "PROFILE_LABEL_STATIC_DIR",
         os.path.join(os.path.dirname(__file__), "public"),
     )
     handlers = [("{}/(.*)".format(doc_url), StaticFileHandler, {"path": doc_dir})]
