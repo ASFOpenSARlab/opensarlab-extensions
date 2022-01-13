@@ -15,7 +15,7 @@ class RouteHandler(APIHandler):
     # Jupyter server
     @tornado.web.authenticated
     def get(self):
-        profile_name = os.environ.get('opensarlab_profile_name', 'Hello!')
+        profile_name = os.environ.get('opensarlab_profile_name', 'No environment variable "opensarlab_profile_name" found!')
         self.finish(json.dumps({"data": profile_name}))
 
 

@@ -1,6 +1,6 @@
 {
   "name": "profile-label",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A JupyterLab extension for OpenSARlab that provides the current profile label to the frontend.",
   "keywords": [
     "jupyter",
@@ -49,8 +49,7 @@
     "@jupyterlab/coreutils": "^5.1.0",
     "@jupyterlab/services": "^6.1.0",
     "@lumino/widgets": "^1.31.0",
-    "jupyterlab-topbar": "^0.6.0"
-
+    "jupyterlab-topbar": "^0.6.1"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.1.0",
