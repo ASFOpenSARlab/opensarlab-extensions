@@ -30,7 +30,7 @@ const profile_label_extension: JupyterFrontEndPlugin<void> = {
       data = await requestAPI<any>('profile-label');
       console.log(data);
     } catch (reason) {
-      console.error(`Error on GET /jlab-ext-example/profile-label.\n${reason}`);
+      console.error(`Error on GET /profile-label/profile-label.\n${reason}`);
     }
 
     const profileLabelWidget = new ProfileLabelWidget();
