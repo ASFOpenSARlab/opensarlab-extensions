@@ -1,19 +1,19 @@
 {
-  "name": "opensarlab_doc_link_widget",
-  "version": "0.1.0",
-  "description": "A JupyterLab extension that adds the OpenSARlab documentation link to the status bar",
+  "name": "profile-label",
+  "version": "0.1.11",
+  "description": "A JupyterLab extension for OpenSARlab that provides the current profile label to the frontend.",
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/ASFOpenSARlab/opensarlab_doc_link_widget",
+  "homepage": "https://github.com/ASFOpenSARlab/opensarlab-extensions",
   "bugs": {
-    "url": "https://github.com/ASFOpenSARlab/opensarlab_doc_link_widget/issues"
+    "url": "https://github.com/ASFOpenSARlab/opensarlab-extensions/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
-    "name": "ASF OpenSARlab",
+    "name": "ASF OpenSARlab Team",
     "email": "uaf-jupyterhub-asf@alaska.edu"
   },
   "files": [
@@ -25,7 +25,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ASFOpenSARlab/opensarlab_doc_link_widget.git"
+    "url": "https://github.com/ASFOpenSARlab/opensarlab-extensions.git"
   },
   "scripts": {
     "build": "jlpm run build:lib && jlpm run build:labextension:dev",
@@ -33,9 +33,10 @@
     "build:labextension": "jupyter labextension build .",
     "build:labextension:dev": "jupyter labextension build --development True .",
     "build:lib": "tsc",
+    "clean:slate": "python clean.py && python -m pip install -v -e .",
     "clean": "jlpm run clean:lib",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
-    "clean:labextension": "rimraf opensarlab_doc_link_widget/labextension",
+    "clean:labextension": "rimraf profile_label/labextension",
     "clean:all": "jlpm run clean:lib && jlpm run clean:labextension",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
@@ -46,8 +47,10 @@
   },
   "dependencies": {
     "@jupyterlab/application": "^3.1.0",
-    "@jupyterlab/statusbar": "^3.2.4",
-    "@lumino/widgets": "^1.30.0"
+    "@jupyterlab/coreutils": "^5.1.0",
+    "@jupyterlab/services": "^6.1.0",
+    "@lumino/widgets": "^1.31.0",
+    "jupyterlab-topbar": "^0.6.0"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.1.0",
@@ -55,7 +58,8 @@
     "@typescript-eslint/parser": "^4.8.1",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-prettier": "^3.1.4", 
+    "eslint-plugin-prettier": "^3.1.4",
+    "mkdirp": "^1.0.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.1",
     "rimraf": "^3.0.2",
@@ -69,9 +73,20 @@
   "publishConfig": {
     "access": "public"
   },
-  "jupyterlab": { 
+  "jupyterlab": {
+    "discovery": {
+      "server": {
+        "managers": [
+          "pip",
+          "conda"
+        ],
+        "base": {
+          "name": "profile_label"
+        }
+      }
+    },
     "extension": true,
-    "outputDir": "opensarlab_doc_link_widget/labextension"
+    "outputDir": "profile_label/labextension"
   },
   "jupyter-releaser": {
     "hooks": {

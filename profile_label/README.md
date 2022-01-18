@@ -1,9 +1,13 @@
-# opensarlab_doc_link_widget
+# profile_label
 
-[![Github Actions Status](https://github.com/ASFOpenSARlab/opensarlab_doc_link_widget/workflows/Build/badge.svg)](https://github.com/ASFOpenSARlab/opensarlab_doc_link_widget/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/ASFOpenSARlab/opensarlab-extensions/workflows/Build/badge.svg)](https://github.com/ASFOpenSARlab/opensarlab-extensions/actions/workflows/build.yml)
 
-A JupyterLab extension that adds the OpenSARlab documentation link to the status bar
+A JupyterLab extension for OpenSARlab that provides the current profile label to the frontend.
 
+
+This extension is composed of a Python package named `profile_label`
+for the server extension and a NPM package named `profile-label`
+for the frontend extension.
 
 
 ## Requirements
@@ -15,7 +19,7 @@ A JupyterLab extension that adds the OpenSARlab documentation link to the status
 To install the extension, execute:
 
 ```bash
-pip install opensarlab_doc_link_widget
+pip install profile_label
 ```
 
 ## Uninstall
@@ -23,7 +27,24 @@ pip install opensarlab_doc_link_widget
 To remove the extension, execute:
 
 ```bash
-pip uninstall opensarlab_doc_link_widget
+pip uninstall profile_label
+```
+
+
+## Troubleshoot
+
+If you are seeing the frontend extension, but it is not working, check
+that the server extension is enabled:
+
+```bash
+jupyter server extension list
+```
+
+If the server extension is installed and enabled, but you are not seeing
+the frontend extension, check the frontend extension is installed:
+
+```bash
+jupyter labextension list
 ```
 
 
@@ -39,11 +60,13 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the opensarlab_doc_link_widget directory
+# Change directory to the profile_label directory
 # Install package in development mode
 pip install -e .
 # Link your development version of the extension with JupyterLab
 jupyter labextension develop . --overwrite
+# Server extension must be manually installed in develop mode
+jupyter server extension enable profile_label
 # Rebuild extension Typescript source after making changes
 jlpm run build
 ```
@@ -68,12 +91,14 @@ jupyter lab build --minimize=False
 ### Development uninstall
 
 ```bash
-pip uninstall opensarlab_doc_link_widget
+# Server extension must be manually disabled in develop mode
+jupyter server extension disable profile_label
+pip uninstall profile_label
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
 command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
-folder is located. Then you can remove the symlink named `opensarlab_doc_link_widget` within that folder.
+folder is located. Then you can remove the symlink named `profile-label` within that folder.
 
 ### Packaging the extension
 
