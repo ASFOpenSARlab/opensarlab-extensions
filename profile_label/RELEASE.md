@@ -12,7 +12,7 @@ packaging instructions in the `pyproject.toml` file to wrap your extension in a
 Python package. Before generating a package, we first need to install `build`.
 
 ```bash
-pip install build twine
+python -m pip install build twine
 ```
 
 To create a Python source package (``.tar.gz``) and the binary package (`.whl`) in the `dist/` directory, do:
@@ -23,10 +23,22 @@ python -m build
 
 > `python setup.py sdist bdist_wheel` is deprecated and will not work for this package.
 
+To upload the package to test-pypi, do:
+
+```bash
+python -m twine upload --repository testpypi dist/*  
+```
+
+To install the package from test-pypi:
+
+```bash
+python -m pip install --extra-index-url https://testpypi.python.org/pypi profile-label==<your current test version>
+```
+
 Then to upload the package to PyPI, do:
 
 ```bash
-twine upload dist/*
+python -m twine upload dist/*
 ```
 
 ### NPM package
