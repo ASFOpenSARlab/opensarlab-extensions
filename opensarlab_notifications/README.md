@@ -1,14 +1,8 @@
 # opensarlab_notifications
 
-[![Github Actions Status](https://github.com/ASFOpenSARlab/opensarlab-extensions/workflows/Build/badge.svg)](https://github.com/ASFOpenSARlab/opensarlab-extensions/actions/workflows/build.yml)
-
 A JupyterLab extension for OpenSARlab that provides notification popups via ICAL formatted calendar for OSL profiles.
 
-The extension needs to have access to Environment Variables are needed to work properly.
-
-`OPENSARLAB_PROFILE_NAME`: The name of the OSL user profile.
-`ICAL_URL`: The publicly accessible url of a ICAL formatted calendar.
-
+The extension needs to have access to the environment variables `OPENSARLAB_PROFILE_NAME` (the name of the OSL user profile being used) and `ICAL_URL` (the publicly accessible url of a ICAL formatted calendar).
 
 This extension is composed of a Python package named `opensarlab_notifications`
 for the server extension and a NPM package named `opensarlab-notifications`
