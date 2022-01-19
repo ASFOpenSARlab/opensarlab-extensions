@@ -1,0 +1,2 @@
+# ignore all package-lock.json everywhere
+./**/package-lock.json
