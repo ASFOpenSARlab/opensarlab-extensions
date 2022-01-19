@@ -1,5 +1,5 @@
 """
-profile_label setup
+opensarlab_profile_label setup
 """
 import json
 import sys
@@ -10,7 +10,7 @@ import setuptools
 HERE = Path(__file__).parent.resolve()
 
 # The name of the project
-name = "profile_label"
+name = "opensarlab_profile_label"
 
 lab_path = (HERE / name.replace("-", "_") / "labextension")
 
@@ -20,16 +20,16 @@ ensured_targets = [
     str(lab_path / "static/style.js")
 ]
 
-labext_name = "profile-label"
+labext_name = "opensarlab-profile-label"
 
 data_files_spec = [
     ("share/jupyter/labextensions/%s" % labext_name, str(lab_path.relative_to(HERE)), "**"),
     ("share/jupyter/labextensions/%s" % labext_name, str("."), "install.json"),
     ("etc/jupyter/jupyter_server_config.d",
-     "jupyter-config/server-config", "profile_label.json"),
+     "jupyter-config/server-config", "opensarlab_profile_label.json"),
     # For backward compatibility with notebook server
     ("etc/jupyter/jupyter_notebook_config.d",
-     "jupyter-config/nb-config", "profile_label.json"),
+     "jupyter-config/nb-config", "opensarlab_profile_label.json"),
 ]
 
 long_description = (HERE / "README.md").read_text()

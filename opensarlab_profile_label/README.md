@@ -1,12 +1,12 @@
-# profile_label
+# opensarlab_profile_label
 
 [![Github Actions Status](https://github.com/ASFOpenSARlab/opensarlab-extensions/workflows/Build/badge.svg)](https://github.com/ASFOpenSARlab/opensarlab-extensions/actions/workflows/build.yml)
 
 A JupyterLab extension for OpenSARlab that provides the current profile label to the frontend.
 
 
-This extension is composed of a Python package named `profile_label`
-for the server extension and a NPM package named `profile-label`
+This extension is composed of a Python package named `opensarlab_profile_label`
+for the server extension and a NPM package named `opensarlab-profile-label`
 for the frontend extension.
 
 
@@ -19,7 +19,7 @@ for the frontend extension.
 To install the extension, execute:
 
 ```bash
-pip install profile_label
+pip install opensarlab_profile_label
 ```
 
 ## Uninstall
@@ -27,7 +27,7 @@ pip install profile_label
 To remove the extension, execute:
 
 ```bash
-pip uninstall profile_label
+pip uninstall opensarlab_profile_label
 ```
 
 
@@ -60,13 +60,13 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the profile_label directory
+# Change directory to the opensarlab_profile_label directory
 # Install package in development mode
 pip install -e .
 # Link your development version of the extension with JupyterLab
 jupyter labextension develop . --overwrite
 # Server extension must be manually installed in develop mode
-jupyter server extension enable profile_label
+jupyter server extension enable opensarlab_profile_label
 # Rebuild extension Typescript source after making changes
 jlpm run build
 ```
@@ -92,13 +92,13 @@ jupyter lab build --minimize=False
 
 ```bash
 # Server extension must be manually disabled in develop mode
-jupyter server extension disable profile_label
-pip uninstall profile_label
+jupyter server extension disable opensarlab_profile_label
+pip uninstall opensarlab_profile_label
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
 command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
-folder is located. Then you can remove the symlink named `profile-label` within that folder.
+folder is located. Then you can remove the symlink named `opensarlab-profile-label` within that folder.
 
 ### Packaging the extension
 
