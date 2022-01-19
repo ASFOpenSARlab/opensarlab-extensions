@@ -1,0 +1,8 @@
+# ignore all package-lock.json everywhere
+**/package-lock.json
+
+# ignore all .DS_Store dirs (mac OS) everywhere
+**/.DS_Store
+
+# ignore all .idea dirs (pycharm) everywhere
+**/.idea
