@@ -117,7 +117,7 @@ dmypy.json
 
 # grayskull conda-forge recipe
 ./opensarlab-profile-label
-./opensarlab-profile-label/*
+./opensarlab-profile-label/**
 
 # package-lock
 ./package-lock.json
