@@ -2,9 +2,7 @@ import {
     JupyterFrontEnd,
     JupyterFrontEndPlugin,
   } from '@jupyterlab/application';
-  
-  // pip install jupyterlab-topbar
-  // jlpm add jupyterlab-topbar
+
   import { ITopBar } from 'jupyterlab-topbar';
   
   import { Widget } from '@lumino/widgets';

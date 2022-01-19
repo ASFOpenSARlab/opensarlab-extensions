@@ -23,6 +23,19 @@ python -m build
 
 > `python setup.py sdist bdist_wheel` is deprecated and will not work for this package.
 
+To upload the package to test-pypi, do:
+
+```bash
+python -m twine upload --repository testpypi dist/*  
+```
+
+To install the package from test-pypi:
+
+```bash
+python -m pip install --extra-index-url https://testpypi.python.org/pypi opensarlab-doc-link==<your current test version>
+```
+
+
 Then to upload the package to PyPI, do:
 
 ```bash
