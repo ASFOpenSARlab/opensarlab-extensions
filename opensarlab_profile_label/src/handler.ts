@@ -17,7 +17,7 @@ export async function requestAPI<T>(
   const settings = ServerConnection.makeSettings();
   const requestUrl = URLExt.join(
     settings.baseUrl,
-    'profile-label', // API Namespace
+    'opensarlab-profile-label', // API Namespace
     endPoint
   );
 

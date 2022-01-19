@@ -18,7 +18,7 @@ def _jupyter_labextension_paths():
 
 def _jupyter_server_extension_points():
     return [{
-        "module": "profile_label"
+        "module": "opensarlab_profile_label"
     }]
 
 
@@ -30,9 +30,9 @@ def _load_jupyter_server_extension(server_app):
     server_app: jupyterlab.labapp.LabApp
         JupyterLab application instance
     """
-    url_path = "profile-label-ext"
+    url_path = "opensarlab-profile-label"
     setup_handlers(server_app.web_app, url_path)
-    server_app.log.info(f"Registered HelloWorld extension at URL path {url_path}/profile-label")
+    server_app.log.info(f"Registered HelloWorld extension at URL path {url_path}/opensarlab-profile-label")
 
 # For backward compatibility with notebook server - useful for Binder/JupyterHub
 load_jupyter_server_extension = _load_jupyter_server_extension

@@ -1,4 +1,4 @@
-# Making a new release of profile_label
+# Making a new release of opensarlab_profile_label
 
 The extension can be published to `PyPI` and `npm` manually or using the [Jupyter Releaser](https://github.com/jupyter-server/jupyter_releaser).
 
@@ -32,7 +32,7 @@ python -m twine upload --repository testpypi dist/*
 To install the package from test-pypi:
 
 ```bash
-python -m pip install --extra-index-url https://testpypi.python.org/pypi profile-label==<your current test version>
+python -m pip install --extra-index-url https://testpypi.python.org/pypi opensarlab-profile-label==<your current test version>
 ```
 
 Then to upload the package to PyPI, do:

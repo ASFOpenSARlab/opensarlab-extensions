@@ -1,2 +1,0 @@
-jupyter_server>=1.6,<2
-jupyterlab-topbar~=0.6.1

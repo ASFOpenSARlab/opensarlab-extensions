@@ -1,6 +1,6 @@
 {
-  "name": "profile-label",
-  "version": "0.1.11",
+  "name": "opensarlab-profile-label",
+  "version": "0.1.2",
   "description": "A JupyterLab extension for OpenSARlab that provides the current profile label to the frontend.",
   "keywords": [
     "jupyter",
@@ -36,7 +36,7 @@
     "clean:slate": "python clean.py && python -m pip install -v -e .",
     "clean": "jlpm run clean:lib",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
-    "clean:labextension": "rimraf profile_label/labextension",
+    "clean:labextension": "rimraf opensarlab_profile_label/labextension",
     "clean:all": "jlpm run clean:lib && jlpm run clean:labextension",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
@@ -81,12 +81,12 @@
           "conda"
         ],
         "base": {
-          "name": "profile_label"
+          "name": "opensarlab_profile_label"
         }
       }
     },
     "extension": true,
-    "outputDir": "profile_label/labextension"
+    "outputDir": "opensarlab_profile_label/labextension"
   },
   "jupyter-releaser": {
     "hooks": {
