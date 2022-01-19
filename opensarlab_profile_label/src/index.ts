@@ -8,7 +8,7 @@ import { Widget } from '@lumino/widgets';
 
 import { requestAPI } from './handler';
 
-class ProfileLabelWidget extends Widget {
+class OpensarlabProfileLabelWidget extends Widget {
   constructor() {
     super();
 
@@ -35,9 +35,9 @@ const opensarlab_profile_label_extension: JupyterFrontEndPlugin<void> = {
       );
     }
 
-    const profileLabelWidget = new ProfileLabelWidget();
-    profileLabelWidget.span.innerText = data['data'];
-    topBar.addItem('opensarlab_profile_label', profileLabelWidget);
+    const opensarlabProfileLabelWidget = new OpensarlabProfileLabelWidget();
+    opensarlabProfileLabelWidget.span.innerText = data['data'];
+    topBar.addItem('opensarlab_profile_label', opensarlabProfileLabelWidget);
   }
 };
 
