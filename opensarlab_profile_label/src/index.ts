@@ -30,7 +30,9 @@ const opensarlab_profile_label_extension: JupyterFrontEndPlugin<void> = {
       data = await requestAPI<any>('opensarlab-profile-label');
       console.log(data);
     } catch (reason) {
-      console.error(`Error on GET /opensarlab-profile-label/opensarlab-profile-label.\n${reason}`);
+      console.error(
+        `Error on GET /opensarlab-profile-label/opensarlab-profile-label.\n${reason}`
+      );
     }
 
     const profileLabelWidget = new ProfileLabelWidget();

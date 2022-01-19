@@ -30,7 +30,7 @@ def _load_jupyter_server_extension(server_app):
     server_app: jupyterlab.labapp.LabApp
         JupyterLab application instance
     """
-    url_path = "opensarlab-profile-label-ext"
+    url_path = "opensarlab-profile-label"
     setup_handlers(server_app.web_app, url_path)
     server_app.log.info(f"Registered HelloWorld extension at URL path {url_path}/opensarlab-profile-label")
 
