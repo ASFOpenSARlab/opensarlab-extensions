@@ -110,13 +110,14 @@ dmypy.json
 
 # OSX files
 ../.DS_Store
-.DS_Store
 
 # pycharm
 ../.idea
+./.idea
 
 # grayskull conda-forge recipe
 ./opensarlab-profile-label
+./opensarlab-profile-label/*
 
 # package-lock
 ./package-lock.json
