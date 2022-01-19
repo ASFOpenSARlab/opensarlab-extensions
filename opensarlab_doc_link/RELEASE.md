@@ -35,7 +35,6 @@ To install the package from test-pypi:
 python -m pip install --extra-index-url https://testpypi.python.org/pypi opensarlab-doc-link==<your current test version>
 ```
 
-
 Then to upload the package to PyPI, do:
 
 ```bash
