@@ -50,8 +50,7 @@ setup_args = dict(
     packages=setuptools.find_packages(),
     install_requires=[
         "jupyter_server>=1.6,<2",
-        "jupyterlab-topbar", 
-        "ics",
+        "ics==0.7",
         "html2text",
         "requests",
         "pyyaml"
