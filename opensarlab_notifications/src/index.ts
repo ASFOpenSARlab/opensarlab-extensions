@@ -34,7 +34,7 @@ const extension: JupyterFrontEndPlugin<void> = {
                 "hideMethod": "fadeOut"
             };
 
-            fetch(window.location.origin + '/opensarlab-notifications/notifications' )
+            fetch('opensarlab-notifications/notifications' )
                 .then( response => response.json() )
                 .then( notes => {
                     console.log(notes)
@@ -46,7 +46,7 @@ const extension: JupyterFrontEndPlugin<void> = {
                 .catch( error => console.log(error) )
         });
     } catch (reason) {
-        console.error(`Error on GET /opensarlab-notifications/notifications.\n${reason}`);
+        console.error(`Error on GET opensarlab-notifications/notifications.\n${reason}`);
     }
   },
 };
