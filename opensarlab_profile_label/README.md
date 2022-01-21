@@ -1,9 +1,8 @@
 # opensarlab_profile_label
 
-[![Github Actions Status](https://github.com/ASFOpenSARlab/opensarlab-extensions/workflows/Build/badge.svg)](https://github.com/ASFOpenSARlab/opensarlab-extensions/actions/workflows/build.yml)
-
 A JupyterLab extension for OpenSARlab that provides the current profile label to the frontend.
 
+Requires the environment variable `OPENSARLAB_PROFILE_NAME` to be set to the name of the profile.
 
 This extension is composed of a Python package named `opensarlab_profile_label`
 for the server extension and a NPM package named `opensarlab-profile-label`
@@ -77,7 +76,8 @@ You can watch the source directory and run JupyterLab at the same time in differ
 # Watch the source directory in one terminal, automatically rebuilding when needed
 jlpm run watch
 # Run JupyterLab in another terminal
-jupyter lab
+# To reduce chances of conflict with the environment, we can prepend OPENSARLAB_PROFILE_NAME.
+OPENSARLAB_PROFILE_NAME=profile_name jupyter lab
 ```
 
 With the watch command running, every saved change will immediately be built locally and available in your running JupyterLab. Refresh JupyterLab to load the change in your browser (you may need to wait several seconds for the extension to be rebuilt).
