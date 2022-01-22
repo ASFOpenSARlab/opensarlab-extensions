@@ -6,6 +6,8 @@ import {
 import jQuery from 'jquery';
 import toastr from 'toastr';
 
+import { requestAPI } from './handler';
+
 const extension: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab-topbar-opensarlab-notifications',
   autoStart: true,
@@ -16,7 +18,7 @@ const extension: JupyterFrontEndPlugin<void> = {
         toastrLink.rel = 'stylesheet'
         document.head.appendChild(toastrLink)
 
-        jQuery( document ).ready(function() {
+        jQuery(async () => {
             toastr.options = {
                 "closeButton": true,
                 "newestOnTop": true,
@@ -34,16 +36,19 @@ const extension: JupyterFrontEndPlugin<void> = {
                 "hideMethod": "fadeOut"
             };
 
-            fetch('opensarlab-notifications/notifications' )
-                .then( response => response.json() )
-                .then( notes => {
-                    console.log(notes)
-                    notes['data'].forEach( function (entry: any) {
-                        (toastr as any)[entry.type](entry.message, entry.title)
-                        }
-                    )
-                })
-                .catch( error => console.log(error) )
+            let notes = null;
+            try {
+                notes = await requestAPI<any>('notifications');
+                console.log(notes);
+                notes['data'].forEach( function (entry: any) {
+                    (toastr as any)[entry.type](entry.message, entry.title)
+                    }
+                )
+            } catch (reason) {
+                console.error(
+                    `Error on GET /opensarlab-notifications/notifications.\n${reason}`
+                );
+            }
         });
     } catch (reason) {
         console.error(`Error on GET opensarlab-notifications/notifications.\n${reason}`);
