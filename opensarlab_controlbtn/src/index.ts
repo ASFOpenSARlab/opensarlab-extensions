@@ -14,7 +14,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
   activate: (app: JupyterFrontEnd, topBar: ITopBar) => {
     const serverBtn = new ToolbarButton({
       className: 'hub-server-button',
-      label: 'Quit',
+      label: 'Shutdown and Logout Page',
       onClick: () => {
         window.location.href = '/hub/home';
       },
