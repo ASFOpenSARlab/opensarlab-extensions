@@ -1,7 +1,7 @@
 {
   "name": "opensarlab-notifications",
-  "version": "0.1.4",
-  "description": "A JupyterLab extension for OpenSARlab that provides notification popups via ICAL formatted calendar for OSL profiles.",
+  "version": "1.0.0",
+  "description": "A JupyterLab extension for OpenSARlab that provides notification popups.",
   "keywords": [
     "jupyter",
     "jupyterlab",
