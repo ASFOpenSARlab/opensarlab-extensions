@@ -23,11 +23,13 @@ class RouteHandler(APIHandler):
         try:
             response = await AsyncHTTPClient().fetch(req)
             body = response.body.decode('utf8', 'replace')
+            if body == 'null':
+                body = '[]'
             self.finish(json.dumps({"data": body}))
 
         except Exception as e:
             self.log.error(f"Error: {e}")
-            return []
+            self.finish(json.dumps({"data": '[]'}))
 
 def setup_handlers(web_app, url_path):
     host_pattern = ".*$"
