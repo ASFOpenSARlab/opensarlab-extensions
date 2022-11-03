@@ -15,7 +15,7 @@ class RouteHandler(APIHandler):
     @tornado.web.authenticated
     async def get(self):
         profile_name = os.environ.get('OPENSARLAB_PROFILE_NAME', '')
-        lab_short_name = os.environ.get('OPENSARLAB_LAB_HOME_PATH', '')
+        lab_short_name = os.environ.get('OPENSARLAB_LAB_SHORT_NAME', '')
         domain_name = os.environ.get('OPENSARLAB_PORTAL_DOMAIN', '')
         notification_url = f"{domain_name}/notifications/{lab_short_name}?profile={profile_name}"
 
