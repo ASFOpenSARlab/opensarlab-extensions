@@ -39,8 +39,9 @@ const extension: JupyterFrontEndPlugin<void> = {
             let notes = null;
             try {
                 notes = await requestAPI<any>('notifications');
+                notes = JSON.parse(notes['data']);
                 console.log(notes);
-                notes['data'].forEach( function (entry: any) {
+                notes.forEach( function (entry: any) {
                     (toastr as any)[entry.type](entry.message, entry.title)
                     }
                 )
