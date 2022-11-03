@@ -1,13 +1,15 @@
 # opensarlab_notifications
 
-A JupyterLab extension for OpenSARlab that provides notification popups via ICAL formatted calendar for OSL profiles.
+A JupyterLab frontend and backend extension for OpenSARLab that provides calendar notification popups within JupyterLab.
 
-The extension needs to have access to the environment variables `OPENSARLAB_PROFILE_NAME` (the name of the OSL user profile being used) and `ICAL_URL` (the publicly accessible url of a ICAL formatted calendar).
+The extension needs to have access to the following environment variables within the JupyterLab server extension:
 
-This extension is composed of a Python package named `opensarlab_notifications`
-for the server extension and a NPM package named `opensarlab-notifications`
-for the frontend extension.
+- `OPENSARLAB_PROFILE_NAME`: The name of the OSL user profile being used 
+- `OPENSARLAB_LAB_SHORT_NAME`: The short name of the lab deployment (as used by the OSL Portal)
+- `OPENSARLAB_PORTAL_DOMAIN`: The schema+host domain of the OSL Portal (e.g., https://opensarlab.asf.alaska.edu)
 
+The server extension part retrieves from the `/notifications/{short_lab_name}?profile={profile_name}` Portal service the calendar notifications 
+in JSON format which then passes to _toastr_ within the frontend extension for display.
 
 ## Requirements
 
@@ -78,7 +80,10 @@ jlpm run watch
 
 # Run JupyterLab in another terminal
 # To avoid polluting the parent environment, prepend the needed Environment Variables.
-ICAL_URL=ical_url OPENSARLAB_PROFILE_NAME=opensarlab_profile_name jupyter lab
+OPENSARLAB_PROFILE_NAME=opensarlab_profile_name \
+    OPENSARLAB_LAB_SHORT_NAME=opensarlab_lab_short_name \
+    OPENSARLAB_PORTAL_DOMAIN=opensarlab_portal_domain \
+    jupyter lab
 ```
 
 With the watch command running, every saved change will immediately be built locally and available in your running JupyterLab. Refresh JupyterLab to load the change in your browser (you may need to wait several seconds for the extension to be rebuilt).

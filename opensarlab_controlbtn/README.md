@@ -2,8 +2,7 @@
 
 [![Github Actions Status](https://github.com/ASFOpenSARlab/opensarlab-extensions.git/workflows/Build/badge.svg)](https://github.com/ASFOpenSARlab/opensarlab-extensions.git/actions/workflows/build.yml)
 
-An extension that adds a Hub Control Panel button to the topbar
-
+An extension that adds a Hub Control Panel button to the topbar that links to the start/stop server page. This will only work specifically with OpenSARLab.
 
 
 ## Requirements
