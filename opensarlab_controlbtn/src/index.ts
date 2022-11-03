@@ -16,7 +16,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
       className: 'hub-server-button',
       label: 'Shutdown and Logout Page',
       onClick: () => {
-        window.location.href = '/hub/home';
+        let base_url = '/lab' + window.location.pathname.split('/')[2];
+        window.location.href = base_url + '/hub/home';
       },
       tooltip: 'Hub Control Panel: A place to stop the server and logout'
     });

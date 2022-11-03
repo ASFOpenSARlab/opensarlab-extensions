@@ -6,19 +6,28 @@ from notebook.utils import url_path_join
 
 import tornado
 from tornado.web import StaticFileHandler
-
-from .notifications import notes
+from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 
 class RouteHandler(APIHandler):
     # The following decorator should be present on all verb methods (head, get, post,
     # patch, put, delete, options) to ensure only authorized user can request the
     # Jupyter server
     @tornado.web.authenticated
-    def get(self):
+    async def get(self):
         profile_name = os.environ.get('OPENSARLAB_PROFILE_NAME', '')
-        ical_url = os.environ.get('ICAL_URL', '')
-        events = notes(profile_name, ical_url)
-        self.finish(json.dumps({"data": events}))
+        lab_short_name = os.environ.get('OPENSARLAB_LAB_HOME_PATH', '')
+        domain_name = os.environ.get('OPENSARLAB_PORTAL_DOMAIN', '')
+        notification_url = f"{domain_name}/notifications/{lab_short_name}?profile={profile_name}"
+
+        req = HTTPRequest(notification_url)
+        try:
+            response = await AsyncHTTPClient().fetch(req)
+            body = response.body.decode('utf8', 'replace')
+            self.finish(json.dumps({"data": body}))
+
+        except Exception as e:
+            self.log.error(f"Error: {e}")
+            return []
 
 def setup_handlers(web_app, url_path):
     host_pattern = ".*$"
