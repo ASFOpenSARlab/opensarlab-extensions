@@ -1,5 +1,6 @@
 import os
 import json
+import urllib
 
 from notebook.base.handlers import APIHandler
 from notebook.utils import url_path_join
@@ -14,11 +15,11 @@ class RouteHandler(APIHandler):
     # Jupyter server
     @tornado.web.authenticated
     async def get(self):
-        profile_name = os.environ.get('OPENSARLAB_PROFILE_NAME', '')
+        profile_name = urllib.parse.quote(os.environ.get('OPENSARLAB_PROFILE_NAME', ''))
         lab_short_name = os.environ.get('OPENSARLAB_LAB_SHORT_NAME', '')
         domain_name = os.environ.get('OPENSARLAB_PORTAL_DOMAIN', '')
-        notification_url = f"{domain_name}/notifications/{lab_short_name}?profile={profile_name}"
 
+        notification_url = f"{domain_name}/notifications/{lab_short_name}?profile={profile_name}"
         req = HTTPRequest(notification_url)
         try:
             response = await AsyncHTTPClient().fetch(req)
