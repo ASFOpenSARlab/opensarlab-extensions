@@ -1,6 +1,6 @@
 {
   "name": "opensarlab-controlbtn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An OpenSARLab extension that adds a Hub Control Panel button to the topbar",
   "keywords": [
     "jupyter",
