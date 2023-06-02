@@ -12,11 +12,11 @@ jupyter labextension develop . --overwrite
 
 # Server extension must be manually installed in develop mode
 #jupyter server extension list
-printf "\n\n***** jupyter server extension enable oslnotes \n\n"
-jupyter server extension enable oslnotes
+printf "\n\n***** jupyter server extension enable oslnotify \n\n"
+jupyter server extension enable oslnotify
 
 printf "\n\n***** jupyter labextension enable \n\n"
-jupyter labextension enable oslnotes
+jupyter labextension enable oslnotify
 
 # Compile the TypeScript sources to Javascript
 # Rebuild extension Typescript source after making changes

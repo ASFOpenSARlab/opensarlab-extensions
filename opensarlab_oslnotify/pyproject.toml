@@ -3,7 +3,7 @@ requires = ["hatchling>=1.5.0", "jupyterlab>=4.0.0,<5", "hatch-nodejs-version"]
 build-backend = "hatchling.build"
 
 [project]
-name = "oslnotes"
+name = "oslnotify"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.8"
@@ -33,26 +33,26 @@ source = "nodejs"
 fields = ["description", "authors", "urls"]
 
 [tool.hatch.build.targets.sdist]
-artifacts = ["oslnotes/labextension"]
+artifacts = ["oslnotify/labextension"]
 exclude = [".github", "binder"]
 
 [tool.hatch.build.targets.wheel.shared-data]
-"oslnotes/labextension" = "share/jupyter/labextensions/oslnotes"
-"install.json" = "share/jupyter/labextensions/oslnotes/install.json"
+"oslnotify/labextension" = "share/jupyter/labextensions/oslnotify"
+"install.json" = "share/jupyter/labextensions/oslnotify/install.json"
 "jupyter-config/server-config" = "etc/jupyter/jupyter_server_config.d"
 "jupyter-config/nb-config" = "etc/jupyter/jupyter_notebook_config.d"
 
 [tool.hatch.build.hooks.version]
-path = "oslnotes/_version.py"
+path = "oslnotify/_version.py"
 
 [tool.hatch.build.hooks.jupyter-builder]
 dependencies = ["hatch-jupyter-builder>=0.5"]
 build-function = "hatch_jupyter_builder.npm_builder"
 ensured-targets = [
-    "oslnotes/labextension/static/style.js",
-    "oslnotes/labextension/package.json",
+    "oslnotify/labextension/static/style.js",
+    "oslnotify/labextension/package.json",
 ]
-skip-if-exists = ["oslnotes/labextension/static/style.js"]
+skip-if-exists = ["oslnotify/labextension/static/style.js"]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 build_cmd = "build:prod"
@@ -62,7 +62,7 @@ npm = ["jlpm"]
 build_cmd = "install:extension"
 npm = ["jlpm"]
 source_dir = "src"
-build_dir = "oslnotes/labextension"
+build_dir = "oslnotify/labextension"
 
 [tool.jupyter-releaser.options]
 version_cmd = "hatch version"

@@ -56,7 +56,7 @@ def setup_handlers(web_app, url_path=None):
     host_pattern = ".*$"
     base_url = web_app.settings["base_url"]
 
-    route_pattern = url_path_join(base_url, "oslnotes")
+    route_pattern = url_path_join(base_url, "oslnotify")
     
     handlers = [
         (route_pattern, RouteHandler),

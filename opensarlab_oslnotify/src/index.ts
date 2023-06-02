@@ -34,15 +34,15 @@ function notifications(types: string) {
       makeToast(notes)
     })
     .catch(reason => {
-      console.error(`Error oslnotes: ${reason}`);
+      console.error(`Error oslnotify: ${reason}`);
     });
 }
 
 /**
- * Initialization data for the oslnotes extension.
+ * Initialization data for the oslnotify extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
-  id: 'oslnotes:plugin',
+  id: 'oslnotify:plugin',
   description: 'A JupyterLab extension.',
   autoStart: true,
   activate: (app: JupyterFrontEnd) => {

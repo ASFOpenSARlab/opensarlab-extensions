@@ -6,9 +6,12 @@ Various JupyterLab extensions to enhance the user experience within OpenSARlab. 
 
 A hyperlink to the opensarlab documentation (https://opensarlab-docs.asf.alaska.edu) is provided in the topbar of the console. 
 
-## opensarlab_notifications ##
+## opensarlab_notifications (deprecated) ##
 
-Notifications described in a Google Calendar (actually any publically available ICal format calendar) are shown on page load. 
+On server startup, notify user of 
+
+1. Current storage usage
+1. Notifications described in a Google Calendar (actually any publically available ICal format calendar). 
 
 ## opensarlab_profile_label ##
 

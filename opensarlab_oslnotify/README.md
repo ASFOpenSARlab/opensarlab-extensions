@@ -1,10 +1,10 @@
-# oslnotes
+# oslnotify
 
 [![Github Actions Status](/workflows/Build/badge.svg)](/actions/workflows/build.yml)
 A JupyterLab extension.
 
-This extension is composed of a Python package named `oslnotes`
-for the server extension and a NPM package named `oslnotes`
+This extension is composed of a Python package named `oslnotify`
+for the server extension and a NPM package named `oslnotify`
 for the frontend extension.
 
 ## Requirements
@@ -16,7 +16,7 @@ for the frontend extension.
 To install the extension, execute:
 
 ```bash
-pip install oslnotes
+pip install oslnotify
 ```
 
 ## Uninstall
@@ -24,7 +24,7 @@ pip install oslnotes
 To remove the extension, execute:
 
 ```bash
-pip uninstall oslnotes
+pip uninstall oslnotify
 ```
 
 ## Troubleshoot
@@ -55,13 +55,13 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the oslnotes directory
+# Change directory to the oslnotify directory
 # Install package in development mode
 pip install -e "."
 # Link your development version of the extension with JupyterLab
 jupyter labextension develop . --overwrite
 # Server extension must be manually installed in develop mode
-jupyter server extension enable oslnotes
+jupyter server extension enable oslnotify
 # Rebuild extension Typescript source after making changes
 jlpm build
 ```
@@ -87,13 +87,13 @@ jupyter lab build --minimize=False
 
 ```bash
 # Server extension must be manually disabled in develop mode
-jupyter server extension disable oslnotes
-pip uninstall oslnotes
+jupyter server extension disable oslnotify
+pip uninstall oslnotify
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
 command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
-folder is located. Then you can remove the symlink named `oslnotes` within that folder.
+folder is located. Then you can remove the symlink named `oslnotify` within that folder.
 
 ### Packaging the extension
 
