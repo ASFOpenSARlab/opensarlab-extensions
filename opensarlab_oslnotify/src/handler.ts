@@ -18,7 +18,7 @@ export async function requestAPI<T>(
   const requestUrl = URLExt.join(
     settings.baseUrl,
     'oslnotify', // API Namespace
-    '?type='+endPoint
+    '?type=' + endPoint
   );
 
   let response: Response;

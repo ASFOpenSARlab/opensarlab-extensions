@@ -1,5 +1,7 @@
 jlpm  # Install npm package dependencies
 
+jlpm lint
+
 # Clone the repo to your local environment
 # Change directory to the proper directory
 # Install package in development mode

@@ -6,19 +6,19 @@ import {
 import { requestAPI } from './handler';
 import toastr from 'toastr';
 
-interface Butter {
+interface IButter {
   title: string;
   message: string;
   type: string;
   severity: Partial<number>;
 }
 
-interface Bread {
-  options: {};
-  data: Array<Butter>;
+interface IBread {
+  options: object;
+  data: Array<IButter>;
 }
 
-function makeToast(notes: Bread) {
+function makeToast(notes: IBread) {
   toastr.options = notes.options;
   notes.data.forEach((entry: any) => {
     (toastr as any)[entry.type](entry.message, entry.title);
@@ -26,12 +26,18 @@ function makeToast(notes: Bread) {
 }
 
 function notifications(types: string) {
-  document.head.insertAdjacentHTML("beforeend", `<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css'/>`)
-  document.head.insertAdjacentHTML("beforeend", `<style>#toast-container>div{opacity:1;}</style>`)
+  document.head.insertAdjacentHTML(
+    'beforeend',
+    "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css'/>"
+  );
+  document.head.insertAdjacentHTML(
+    'beforeend',
+    '<style>#toast-container>div{opacity:1;}</style>'
+  );
 
   requestAPI<any>(types)
     .then(notes => {
-      makeToast(notes)
+      makeToast(notes);
     })
     .catch(reason => {
       console.error(`Error oslnotify: ${reason}`);
@@ -47,7 +53,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
   autoStart: true,
   activate: (app: JupyterFrontEnd) => {
     console.log('JupyterLab extension opensarlab_notifications is activated!');
-    notifications('storage,calendar')
+    notifications('storage,calendar');
   }
 };
 

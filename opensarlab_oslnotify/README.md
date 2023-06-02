@@ -6,7 +6,7 @@ This extension is composed of a Python package named `oslnotify`
 for the server extension and a NPM package named `oslnotify`
 for the frontend extension.
 
-This extension will server a Toastr notification upon Jupyter server startup (specifcally page load). 
+This extension will server a Toastr notification upon Jupyter server startup (specifcally page load).
 It displays notifications from the appropriate Calendar and the current storage usage.
 
 Required environment variables for the Calendar notification used with endpoint `https://OPENSCIENCELAB_PORTAL_DOMAIN/user/notifications/OPENSCIENCELAB_LAB_SHORT_NAME?profile=OPENSARLAB_PROFILE_NAME`:
@@ -14,7 +14,6 @@ Required environment variables for the Calendar notification used with endpoint 
 - OPENSCIENCELAB_PORTAL_DOMAIN
 - OPENSCIENCELAB_LAB_SHORT_NAME
 - OPENSARLAB_PROFILE_NAME
-
 
 ## Requirements
 
