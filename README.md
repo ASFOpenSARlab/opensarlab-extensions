@@ -8,6 +8,10 @@ A hyperlink to the opensarlab documentation (https://opensarlab-docs.asf.alaska.
 
 ## opensarlab_notifications (deprecated) ##
 
+Older way to add Google Calendar notifications to OSL server.
+
+## opensarlab_notify ##
+
 On server startup, notify user of 
 
 1. Current storage usage
