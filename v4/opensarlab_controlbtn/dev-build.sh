@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -ve
+set -ex
 
 ## 1. 
 ## THIS var needs to be updated to the extension name
@@ -10,7 +10,7 @@ EXTENSION_NAME="opensarlab_controlbtn"
 JLPM_DEPENDS=(
     ## THIS array holds extra jlpm node packages to be install
     @jupyterlab/apputils
-    jupyterlab-topbar
+    @jupyterlab/application-extension
 )
 
 ## 3.
@@ -21,86 +21,104 @@ JLPM_DEV_DEPENDS=(
 ## 4.
 ENV_VARS=(
     ## THIS array holds environment vars injected into JupyterLab at startup
-    OPENSARLAB_PROFILE_NAME='SAR 1'
-    OPENSCIENCELAB_LAB_SHORT_NAME='opensarlab-test'
-    OPENSCIENCELAB_PORTAL_DOMAIN='https://opensciencelab-test.asf.alaska.edu'
+    # Escape single quotes ( ' => \' )
+    OPENSARLAB_PROFILE_NAME=\'SAR 1\'
+    OPENSCIENCELAB_LAB_SHORT_NAME=\'opensarlab-test\'
+    OPENSCIENCELAB_PORTAL_DOMAIN=\'https://opensciencelab-test.asf.alaska.edu\'
 )
 
 ## 5.
+## If there is a server "backend" to the extension, say "true"
+USE_SERVER_EXTENSION=false
+
+
+## 6.
 MAMBA_DEPENDS=(
     ## THIS array holds extra mamba packages to be installed in the environment. This should be used sparingly
 )
 
-## 6.
+## 7.
 ## ANY possible additional python packages will need to be added to the "project.dependencies" section of pyproject.toml
 
 
 
-##############################################
-### Don't change any of the following
-#########
+##############################################################################
+##############################################################################
+#
+# DON'T UPDATE ANY OF THE FOLLOWING
+#
+##############################################################################
+############################################################################## 
+
+EXTENSION_NAME="opensarlab-extension-$EXTENSION_NAME"
+printf "Extension name: $EXTENSION_NAME"
 
 # Create environment
-if { mamba env list | "opensarlab-extension-$EXTENSION_NAME"; } >/dev/null 2>&1; then
-    echo "******** Creating environment opensarlab-extension-$EXTENSION_NAME"
-    exit
-    mamba create -n opensarlab-extension-$EXTENSION_NAME --override-channels --strict-channel-priority -c conda-forge jupyterlab=4 nodejs=18
+if ! { mamba env list | grep -w "$EXTENSION_NAME";} 
+then
+    mamba create -n $EXTENSION_NAME -y --override-channels --strict-channel-priority -c conda-forge jupyterlab=4 nodejs=18
+else 
+    echo "******** Environment $EXTENSION_NAME already exists...."
+
 fi
 
-# Run all mamba rleated commands with `mamba run` using alias
-mrun () {
-    mamba run -n opensarlab-extension-$EXTENSION_NAME "$@"
-}
+mamba env list
 
-echo "Current mamba envs: $(mrun mamba env list)"
+cat > steps.sh <<EOF
 
-# Add javascript libs
-if [ ${#JLPM_DEPENDS[@]} != 0 ]; then
-    echo "********* jlpm add ${JLPM_DEPENDS[@]}"
-    mrun jlpm add ${JLPM_DEPENDS[@]}
-else
-    echo "No jlpm dependencies to add"
-fi
+    set -ex
 
-if [ ${#JLPM_DEV_DEPENDS[@]} != 0 ]; then
-    echo "********* jlpm add --dev ${JLPM_DEPENDS[@]}"
-    mrun jlpm add --dev ${JLPM_DEV_DEPENDS[@]}
-else
-    echo "No jlpm dev dependencies to add"
-fi
+    printf "\n\n"
+    # Install npm package dependencies
+    jlpm
 
-###### DON'T UPDATE ANY OF THE FOLLOWING
-##
-###### Build extension and run 
-##
+    
+    printf "\n\n"
+    # Add javascript libs
+    if [ ${#JLPM_DEPENDS[@]} != 0 ]; then
+        jlpm add ${JLPM_DEPENDS[@]}
+    else
+        echo "No jlpm dependencies to add"
+    fi
 
-mrun jlpm  # Install npm package dependencies
 
-# Clone the repo to your local environment
-# Change directory to the proper directory
-# Install package in development mode
-printf "\n\n***** pip install -e . \n\n"
-mrun pip install -e .
-exit
+    printf "\n\n"
+    # Clone the repo to your local environment
+    # Change directory to the proper directory
+    # Install package in development mode
+    python3 -m pip install -vvv -e .
 
-# Link your development version of the extension with JupyterLab
-printf "\n\n***** jupyter labextension develop . --overwrite \n\n"
-mrun jupyter labextension develop . --overwrite
 
-# Server extension must be manually installed in develop mode
-#jupyter server extension list
-printf "\n\n***** jupyter server extension enable $EXTENSION_NAME \n\n"
-mrun jupyter server extension enable "$EXTENSION_NAME"
+    printf "\n\n"
+    # Link your development version of the extension with JupyterLab
+    jupyter labextension develop . --overwrite
 
-printf "\n\n***** jupyter labextension enable \n\n"
-mrun jupyter labextension enable "$EXTENSION_NAME"
 
-# Compile the TypeScript sources to Javascript
-# Rebuild extension Typescript source after making changes
-printf "\n\n***** jlpm run build \n\n"
-mrun jlpm run build
+    printf "\n\n"
+    # Server extension must be manually installed in develop mode
+    if [ $USE_SERVER_EXTENSION == true ]; 
+    then
+        jupyter server extension list
+        jupyter server extension enable "$EXTENSION_NAME"
 
-############################
-###### Run extension
-printf "\n\n***** jupyter lab \n\n"
-mrun ${ENV_VARS[@]} jupyter lab
+    else
+        echo "No server extensions..."
+    fi
+
+
+    printf "\n\n"
+    jupyter labextension enable "$EXTENSION_NAME"
+
+
+    printf "\n\n"
+    jlpm run build
+
+
+    printf "\n\n"
+    ENV_VARSS="${ENV_VARS[@]}"
+    jupyter lab
+    #$ENV_VARSS jupyter lab
+
+EOF
+
+mamba run --live-stream -n $EXTENSION_NAME bash steps.sh

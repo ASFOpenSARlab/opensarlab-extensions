@@ -1,17 +1,20 @@
 import {
   JupyterFrontEnd,
-  JupyterFrontEndPlugin
+  JupyterFrontEndPlugin,
 } from '@jupyterlab/application';
 
-import { ITopBar } from 'jupyterlab-topbar';
-
-import { ToolbarButton } from '@jupyterlab/apputils';
+import { ToolbarButton, IToolbarWidgetRegistry} from '@jupyterlab/apputils';
 
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'opensarlab-topbar-serverbtn',
   autoStart: true,
-  requires: [ITopBar],
-  activate: (app: JupyterFrontEnd, topBar: ITopBar) => {
+  requires: [IToolbarWidgetRegistry],
+  activate: (
+    app: JupyterFrontEnd,
+    toolbarRegistry: IToolbarWidgetRegistry
+  ) => {
+
+    console.log("Hello!!!!")
     const serverBtn = new ToolbarButton({
       className: 'hub-server-button',
       label: 'Shutdown and Logout Page',
@@ -21,7 +24,11 @@ const plugin: JupyterFrontEndPlugin<void> = {
       tooltip: 'Hub Control Panel: A place to stop the server and logout'
     });
 
-    topBar.addItem('server-btn', serverBtn);
+    app.activatePlugin('@jupyterlab/application-extension:top-bar')
+    //app.shell.add(serverBtn, 'top')
+
+    serverBtn
+    //toolbarRegistry.addFactory('TopBar', 'server-btn', () => serverBtn);
   }
 };
 

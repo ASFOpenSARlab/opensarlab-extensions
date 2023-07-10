@@ -55,8 +55,8 @@
     },
     "dependencies": {
         "@jupyterlab/application": "^4.0.0",
-        "@jupyterlab/apputils": "^4.1.2",
-        "jupyterlab-topbar": "^0.6.0"
+        "@jupyterlab/application-extension": "^4.0.2",
+        "@jupyterlab/apputils": "^4.1.2"
     },
     "devDependencies": {
         "@jupyterlab/builder": "^4.0.0",
