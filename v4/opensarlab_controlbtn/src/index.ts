@@ -15,7 +15,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     app: JupyterFrontEnd
   ) => {
     
-    let rank = 1000;
+    let rank = 1110;
     
     const serverBtn = new ToolbarButton({
       className: 'hub-server-button',
