@@ -22,9 +22,9 @@ JLPM_DEV_DEPENDS=(
 ENV_VARS=(
     ## THIS array holds environment vars injected into JupyterLab at startup
     # Escape single quotes ( ' => \' )
-    OPENSARLAB_PROFILE_NAME=\'SAR 1\'
-    OPENSCIENCELAB_LAB_SHORT_NAME=\'opensarlab-test\'
-    OPENSCIENCELAB_PORTAL_DOMAIN=\'https://opensciencelab-test.asf.alaska.edu\'
+    #OPENSARLAB_PROFILE_NAME=\'SAR 1\'
+    #OPENSCIENCELAB_LAB_SHORT_NAME=\'opensarlab-test\'
+    #OPENSCIENCELAB_PORTAL_DOMAIN=\'https://opensciencelab-test.asf.alaska.edu\'
 )
 
 ## 5.
@@ -98,7 +98,7 @@ cat > steps.sh <<EOF
     # Change directory to the proper directory
     # Install package in development mode
     # (!! This breaks on build !!)
-    ##python3 -m pip install -vvv -e .
+    ##python -m pip install -v -e .
 
 
     printf "\n\n"
@@ -122,11 +122,8 @@ cat > steps.sh <<EOF
 
 
     printf "\n\n"
-    #jupyter lab
-    ${ENV_VARS[@]} jupyter lab
+    ( $(echo ${ENV_VARS[@]}) jupyter lab -y )
 
 EOF
 
 mamba run --live-stream -n $EXTENSION_NAME bash steps.sh
-
-rm steps.sh
