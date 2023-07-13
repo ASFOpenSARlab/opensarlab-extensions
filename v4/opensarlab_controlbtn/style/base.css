@@ -3,3 +3,7 @@
 
     https://jupyterlab.readthedocs.io/en/stable/developer/css.html
 */
+
+button.hub-server-button {
+    border: 1px solid #bdbdbd;
+}

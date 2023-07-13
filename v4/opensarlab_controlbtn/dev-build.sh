@@ -68,11 +68,14 @@ cat > steps.sh <<EOF
 
     set -ex
 
+    jlpm clean:all
+
+
     printf "\n\n"
     # Install npm package dependencies
     jlpm
-
     
+
     printf "\n\n"
     # Add javascript libs
     if [ ${#JLPM_DEPENDS[@]} != 0 ]; then
@@ -82,16 +85,20 @@ cat > steps.sh <<EOF
     fi
 
 
-    printf "\n\n"
-    # Clone the repo to your local environment
-    # Change directory to the proper directory
-    # Install package in development mode
-    python3 -m pip install -vvv -e .
+    jlpm build
 
 
     printf "\n\n"
     # Link your development version of the extension with JupyterLab
     jupyter labextension develop . --overwrite
+
+
+    printf "\n\n"
+    # Clone the repo to your local environment
+    # Change directory to the proper directory
+    # Install package in development mode
+    # (!! This breaks on build !!)
+    ##python3 -m pip install -vvv -e .
 
 
     printf "\n\n"
@@ -115,10 +122,11 @@ cat > steps.sh <<EOF
 
 
     printf "\n\n"
-    ENV_VARSS="${ENV_VARS[@]}"
-    jupyter lab
-    #$ENV_VARSS jupyter lab
+    #jupyter lab
+    ${ENV_VARS[@]} jupyter lab
 
 EOF
 
 mamba run --live-stream -n $EXTENSION_NAME bash steps.sh
+
+rm steps.sh
