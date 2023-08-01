@@ -12,6 +12,13 @@ button.opensarlab-controlbtn {
 }
 
 /*****
+    opensarlab-gitcap_btn
+*/
+button.opensarlab-gitcap-btn {
+    border: 1px solid #bdbdbd;
+}
+
+/*****
     opensarlab_doc_link
 */
 .opensarlab-doc-link-widget a {
