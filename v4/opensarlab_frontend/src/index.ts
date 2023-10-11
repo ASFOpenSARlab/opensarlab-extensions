@@ -3,6 +3,8 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
+
 import { main as controlbtn } from './components/controlbtn';
 import { main as doc_link } from './components/doc_link';
 import { main as profile_label } from './components/profile_label'
@@ -16,8 +18,23 @@ const plugin: JupyterFrontEndPlugin<void> = {
   id: 'opensarlab_frontend:plugin',
   description: 'A JupyterLab extension.',
   autoStart: true,
-  activate: (app: JupyterFrontEnd) => {
+  optional: [ISettingRegistry],
+  activate: (app: JupyterFrontEnd, settingRegistry: ISettingRegistry | null) => {
     console.log('JupyterLab extension opensarlab_frontend is activated!');
+
+    let my_settings = null;
+
+    if (settingRegistry) {
+      settingRegistry
+        .load(plugin.id)
+        .then(settings => {
+          console.log('opensarlab_frontend settings loaded:', settings.composite);
+          my_settings = settings;
+        })
+        .catch(reason => {
+          console.error('Failed to load settings for opensarlab_frontend.', reason);
+        });
+    }
 
     // second arg is rank on topbar
     gifcap_btn(app, 1025)
@@ -26,6 +43,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     controlbtn(app, 1110);
 
     oslnotify(app, 'storage,calendar');
+
   }
 };
 

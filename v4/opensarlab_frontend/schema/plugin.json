@@ -1,0 +1,8 @@
+{
+  "jupyter.lab.shortcuts": [],
+  "title": "opensarlab_frontend",
+  "description": "opensarlab_frontend settings.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}
