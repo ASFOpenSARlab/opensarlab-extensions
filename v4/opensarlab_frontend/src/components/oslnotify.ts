@@ -47,9 +47,16 @@ function notifications(types: string) {
 
 export function main(
     app: JupyterFrontEnd,
+    enabled: boolean,
     note_type: string
 ) {
-    console.log('JupyterLab extension opensarlab_oslnotify is activated!');
-    notifications('storage,calendar');
+    if(enabled) {
+        notifications('storage,calendar');
+        console.log('JupyterLab extension opensarlab-frontend:oslnotify is activated!');
+    
+    } else {
+
+        console.log('JupyterLab extension opensarlab-frontend:oslnotify is not activated!');
+    }
 }
   

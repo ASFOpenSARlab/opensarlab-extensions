@@ -12,6 +12,7 @@ JLPM_DEPENDS=(
     @jupyterlab/apputils
     @jupyterlab/application-extension
     toastr
+    @lumino/widgets
 )
 
 ## 3.

@@ -26,12 +26,20 @@ class DocsAnchorWidget extends Widget {
 }
   
 export function main(
-    app: JupyterFrontEnd, 
+    app: JupyterFrontEnd,
+    enabled: boolean,
     rank: number
     ) {
 
-      const docLinkWidget = new DocsAnchorWidget();
-      docLinkWidget.id = DOMUtils.createDomID();
-      app.shell.add(docLinkWidget, 'top', {rank:rank});
-  
+        if(enabled) {
+            const docLinkWidget = new DocsAnchorWidget();
+            docLinkWidget.id = DOMUtils.createDomID();
+            app.shell.add(docLinkWidget, 'top', {rank:rank});
+        
+            console.log('JupyterLab extension opensarlab-frontend:doc_link is activated!');
+      
+        } else {
+
+            console.log('JupyterLab extension opensarlab-frontend:doc_link is not activated!');
+        }
     };
