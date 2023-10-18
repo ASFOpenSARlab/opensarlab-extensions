@@ -1,5 +1,0 @@
-{
-  "packageManager": "python",
-  "packageName": "opensarlab_controlbtn",
-  "uninstallInstructions": "Use your Python package manager (pip, conda, etc.) to uninstall the package opensarlab_controlbtn"
-}
