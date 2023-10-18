@@ -942,12 +942,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/toastr@npm:^2.1.41":
-  version: 2.1.41
-  resolution: "@types/toastr@npm:2.1.41"
+"@types/toastr@npm:^2.1.42":
+  version: 2.1.42
+  resolution: "@types/toastr@npm:2.1.42"
   dependencies:
     "@types/jquery": "*"
-  checksum: a9deffc2368675c0fbc4a85a9d93c71e65ed2825db634f4f9f09f5a4294723d115ac3b8bb1310eb7ef3f07f8511917341329fe5ab8a8139dee3ef5af5b5baf39
+  checksum: 616620369b3925f9bd4167a4d2b9ca968c336c68c73947b071860fa9153588e452a5832c0dce6d066c20d4d6289066bfaede472ef22667d3b3f1ea011c5d6d16
   languageName: node
   linkType: hard
 
@@ -3968,7 +3968,7 @@ __metadata:
     "@lumino/widgets": ^2.3.0
     "@types/json-schema": ^7.0.11
     "@types/react": ^18.0.26
-    "@types/toastr": ^2.1.41
+    "@types/toastr": ^2.1.42
     "@typescript-eslint/eslint-plugin": ^6.1.0
     "@typescript-eslint/parser": ^6.1.0
     css-loader: ^6.7.1

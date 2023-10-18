@@ -59,10 +59,10 @@ printf "Extension name: $EXTENSION_NAME"
 # Create environment
 if ! { mamba env list | grep -w "$MAMBA_ENV_NAME";} 
 then
-    mamba create -n $MAMBA_ENV_NAME -y --override-channels --strict-channel-priority -c conda-forge jupyterlab=4 nodejs=18
+    mamba create -n $MAMBA_ENV_NAME -y --override-channels --strict-channel-priority -c conda-forge "jupyterlab>=4" "nodejs>=18"
 else 
-    echo "******** Environment $MAMBA_ENV_NAME already exists...."
-
+    echo "******** Environment $MAMBA_ENV_NAME already exists....updating"
+    mamba update -n $MAMBA_ENV_NAME -y --override-channels --strict-channel-priority -c conda-forge "jupyterlab>=4" "nodejs>=18"
 fi
 
 mamba env list
@@ -131,6 +131,9 @@ cat > steps.sh <<EOF
     printf "\n\n"
     jlpm run build
 
+
+    printf "\n\n"
+    mamba env list
 
     printf "\n\n"
     ( $(echo ${ENV_VARS[@]}) jupyter lab -y )
