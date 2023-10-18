@@ -2,9 +2,9 @@ import {
     JupyterFrontEnd,
 } from '@jupyterlab/application';
 
-import { 
-    DOMUtils 
-} from '@jupyterlab/apputils';
+import { PartialJSONObject } from '@lumino/coreutils';
+
+import { find } from '@lumino/algorithm';
 
 import { Widget } from '@lumino/widgets';
 
@@ -17,7 +17,7 @@ class DocsAnchorWidget extends Widget {
         this.hyperlink.href = 'https://opensarlab-docs.asf.alaska.edu/user-guides/how_to_run_a_notebook/';
         this.hyperlink.target = 'blank';
         this.addClass('opensarlab-doc-link-widget');
-        this.addClass('opensarlab-widget');
+        this.addClass('opensarlab-frontend-object');
 
         this.node.appendChild(this.hyperlink);
     }
@@ -27,19 +27,27 @@ class DocsAnchorWidget extends Widget {
   
 export function main(
     app: JupyterFrontEnd,
-    enabled: boolean,
-    rank: number
+    settings: PartialJSONObject
     ) {
 
-        if(enabled) {
-            const docLinkWidget = new DocsAnchorWidget();
-            docLinkWidget.id = DOMUtils.createDomID();
-            app.shell.add(docLinkWidget, 'top', {rank:rank});
-        
-            console.log('JupyterLab extension opensarlab-frontend:doc_link is activated!');
-      
-        } else {
+        let enabled = settings.enabled as boolean;
+        let rank = settings.rank as number;
 
+        const widget_id = 'opensarlab-doc-link-widget'
+
+        const widget = find(app.shell.widgets('top'), w => w.id === widget_id);
+        if (widget) {
+            widget.dispose()
+        }  
+
+        if(!enabled) {
             console.log('JupyterLab extension opensarlab-frontend:doc_link is not activated!');
+            return;
         }
+    
+        const docLinkWidget = new DocsAnchorWidget();
+        docLinkWidget.id = widget_id;
+        app.shell.add(docLinkWidget, 'top', {rank:rank});
+    
+        console.log('JupyterLab extension opensarlab-frontend:doc_link is activated!');
     };

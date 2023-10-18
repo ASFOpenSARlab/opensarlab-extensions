@@ -1,10 +1,10 @@
 import {
     JupyterFrontEnd
 } from '@jupyterlab/application';
-  
-import {
-    DOMUtils 
-} from '@jupyterlab/apputils';
+
+import { PartialJSONObject } from '@lumino/coreutils';
+
+import { find } from '@lumino/algorithm';
   
 import { Widget } from '@lumino/widgets';
   
@@ -17,7 +17,7 @@ class OpensarlabProfileLabelWidget extends Widget {
   
         this.span = document.createElement('span');
         this.addClass('opensarlab-profile-label-widget');
-        this.addClass('opensarlab-widget');
+        this.addClass('opensarlab-frontend-object');
         this.node.appendChild(this.span);
     }
   
@@ -26,31 +26,41 @@ class OpensarlabProfileLabelWidget extends Widget {
   
 export async function main(
     app: JupyterFrontEnd,
-    enabled: boolean,
-    rank: number
+    settings: PartialJSONObject
 ) {
-    if(enabled) {
-        let data = null;
-        try {
-            data = await requestAPI<any>('opensarlab-profile-label');
-            console.log(data);
-        } catch (reason) {
-            console.error(
-                `Error on GET /opensarlab-frontend/opensarlab-profile-label.\n${reason}`
-            );
-        }
-    
-        const opensarlabProfileLabelWidget = new OpensarlabProfileLabelWidget();
-        opensarlabProfileLabelWidget.id = DOMUtils.createDomID();
-        opensarlabProfileLabelWidget.span.innerText = data['data'];
-    
-        app.shell.add(opensarlabProfileLabelWidget, 'top', {rank:rank});
 
-        console.log('JupyterLab extension opensarlab-frontend:profile_label is activated!');
-    
-    } else {
+    let enabled = settings.enabled as boolean;
+    let rank = settings.rank as number;
 
+    const widget_id = 'opensarlab-profile-label-widget'
+
+    const widget = find(app.shell.widgets('top'), w => w.id === widget_id);
+    if (widget) {
+        widget.dispose()
+    } 
+
+    if(!enabled) {
         console.log('JupyterLab extension opensarlab-frontend:profile_label is not activated!');
+        return;
     }
+
+    let data = null;
+    try {
+        data = await requestAPI<any>('opensarlab-profile-label');
+        console.log(data);
+    } catch (reason) {
+        console.error(
+            `Error on GET /opensarlab-frontend/opensarlab-profile-label.\n${reason}`
+        );
+    }
+
+    const opensarlabProfileLabelWidget = new OpensarlabProfileLabelWidget();
+    opensarlabProfileLabelWidget.id = widget_id;
+    opensarlabProfileLabelWidget.span.innerText = data['data'];
+
+    app.shell.add(opensarlabProfileLabelWidget, 'top', {rank:rank});
+
+    console.log('JupyterLab extension opensarlab-frontend:profile_label is activated!');
+
 };
   

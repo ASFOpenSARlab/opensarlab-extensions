@@ -39,7 +39,7 @@ class RouteHandler(APIHandler):
             'progressBar': 'true',
             'positionClass': 'toast-bottom-right',
             'preventDuplicates': 'false',
-            'onclick': 'undefined',
+            'onclick': 'false',
             'showDuration': '30',
             'hideDuration': '1',
             'timeOut': '0',

@@ -2,36 +2,47 @@ import {
     JupyterFrontEnd,
 } from '@jupyterlab/application';
 
+import { PartialJSONObject } from '@lumino/coreutils';
+
+import { find } from '@lumino/algorithm';
+
 import { 
-    ToolbarButton,
-    DOMUtils 
+    ToolbarButton
 } from '@jupyterlab/apputils';
   
 export function main(
     app: JupyterFrontEnd,
-    enabled: boolean, 
-    rank: number
+    settings: PartialJSONObject
     ) {
 
-      if (enabled) {
-        const gifcapBtn = new ToolbarButton({
-          className: 'opensarlab-gitcap-btn',
-          label: 'GIF Capture',
-          onClick: () => {
-              window.open('https://gifcap.dev', '_blank');
-          },
-          tooltip: 'Create and download screen capture GIFs'
-        });
+      let enabled = settings.enabled as boolean;
+      let rank = settings.rank as number;
 
-        gifcapBtn.id = DOMUtils.createDomID();
-        gifcapBtn.addClass('opensarlab-widget')
+      const widget_id = 'opensarlab-frontend-gitcap-btn' 
 
-        app.shell.add(gifcapBtn, 'top', {rank:rank});
+      const widget = find(app.shell.widgets('top'), w => w.id === widget_id);
+      if (widget) {
+        widget.dispose()
+      }  
 
-        console.log('JupyterLab extension opensarlab-frontend:gifcap_btn is activated!');
-      
-      } else {
-        
+      if (!enabled) {
         console.log('JupyterLab extension opensarlab-frontend:gifcap_btn is not activated!');
+        return
       }
+
+      const gifcapBtn = new ToolbarButton({
+        className: 'opensarlab-gitcap-btn',
+        label: 'GIF Capture',
+        onClick: () => {
+            window.open('https://gifcap.dev', '_blank');
+        },
+        tooltip: 'Create and download screen capture GIFs'
+      });
+
+      gifcapBtn.id = widget_id;
+      gifcapBtn.addClass('opensarlab-frontend-object')
+
+      app.shell.add(gifcapBtn, 'top', {rank:rank});
+
+      console.log('JupyterLab extension opensarlab-frontend:gifcap_btn is activated!');      
     };

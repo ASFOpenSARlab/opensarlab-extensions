@@ -37,7 +37,7 @@ button.opensarlab-gitcap-btn {
 /*****
     general
 */
-.opensarlab-widget {
+.opensarlab-frontend-object {
     padding-left: 10px !important;
     padding-right: 10px !important;
     flex-direction: column;
