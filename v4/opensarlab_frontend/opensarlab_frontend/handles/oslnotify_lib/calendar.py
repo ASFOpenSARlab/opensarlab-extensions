@@ -28,6 +28,10 @@ def main(profile_name: str='default', lab_short_name: str='default', portal_doma
 
         return active_events
 
+    except requests.exceptions.MissingSchema as e:
+        print(e)
+        return []
+
     except Exception as e:
         print(e)
         raise Exception(f"{e}")
