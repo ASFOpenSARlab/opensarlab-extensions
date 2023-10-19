@@ -3,8 +3,6 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
-import { PartialJSONObject } from '@lumino/coreutils';
-
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
 import { main as controlbtn } from './components/controlbtn';
@@ -23,32 +21,35 @@ const plugin: JupyterFrontEndPlugin<void> = {
   optional: [ISettingRegistry],
   activate: (app: JupyterFrontEnd, settingRegistry: ISettingRegistry | null) => {
   
-    function loadSetting(settings: ISettingRegistry.ISettings): void {
-
-      gifcap_btn(app, settings.get('gifcap_btn').composite as PartialJSONObject);
-      profile_label(app, settings.get('profile_label').composite as PartialJSONObject);
-      doc_link(app, settings.get('doc_link').composite as PartialJSONObject);
-      controlbtn(app, settings.get('controlbtn').composite as PartialJSONObject);
-      oslnotify(app, settings.get('oslnotify').composite as PartialJSONObject);
-    }
-
     // Wait for the application to be restored and
     // for the settings for this plugin to be loaded
-    if(settingRegistry) {
-      Promise.all([
-            app.restored, 
-            settingRegistry.load(plugin.id)
-        ])
-        .then(([, setting]) => {
-          // Read the settings
-          loadSetting(setting);
-
-          // Listen for your plugin setting changes using Signal
-          setting.changed.connect(loadSetting);
-        });
+    if(!settingRegistry) {
+      console.log("Settings not found. opensarlab_frontend cannot be established.")
+      return; 
     }
 
-    console.log('JupyterLab extension opensarlab_frontend is fully operational!');
+    Promise.all([
+          app.restored, 
+          settingRegistry.load(plugin.id)
+      ])
+      .then(([, settings]) => {
+
+        async function loadSettings(allSettings: ISettingRegistry.ISettings): Promise<void> {
+          await gifcap_btn(app, allSettings);
+          await profile_label(app, allSettings);
+          await doc_link(app, allSettings);
+          await controlbtn(app, allSettings);
+          await oslnotify(app, allSettings);
+        }
+
+        // Read the settings
+        loadSettings(settings);
+
+        // Listen for your plugin setting changes using Signal
+        settings.changed.connect(loadSettings);
+
+        console.log("JupyterLab extension opensarlab_frontend is fully operational!");
+      });
   }
 };
 

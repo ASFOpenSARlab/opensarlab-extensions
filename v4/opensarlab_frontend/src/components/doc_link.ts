@@ -2,6 +2,8 @@ import {
     JupyterFrontEnd,
 } from '@jupyterlab/application';
 
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
+
 import { PartialJSONObject } from '@lumino/coreutils';
 
 import { find } from '@lumino/algorithm';
@@ -25,10 +27,10 @@ class DocsAnchorWidget extends Widget {
     readonly hyperlink: HTMLAnchorElement;
 }
   
-export function main(
-    app: JupyterFrontEnd,
-    settings: PartialJSONObject
-    ) {
+export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.ISettings): Promise<void> {
+
+        const settings = allSettings.get('doc_link').composite as PartialJSONObject ?? allSettings.default('doc_link') as PartialJSONObject;
+        ;
 
         let enabled = settings.enabled as boolean;
         let rank = settings.rank as number;

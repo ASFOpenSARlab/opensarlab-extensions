@@ -2,6 +2,8 @@ import {
     JupyterFrontEnd
 } from '@jupyterlab/application';
 
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
+
 import { PartialJSONObject } from '@lumino/coreutils';
 
 import { find } from '@lumino/algorithm';
@@ -70,10 +72,10 @@ class OpensarlabNotifyWidget extends Widget {
     }
 }
 
-export function main(
-    app: JupyterFrontEnd,
-    settings: PartialJSONObject
-) {
+export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.ISettings): Promise<void> {
+
+    const settings = allSettings.get('oslnotify').composite as PartialJSONObject ?? allSettings.default('oslnotify') as PartialJSONObject;
+    ;
 
     let enabled = settings.enabled as boolean;
     let note_type = settings.note_type as string;
