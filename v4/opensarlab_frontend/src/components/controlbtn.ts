@@ -16,7 +16,6 @@ export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.I
 
     const settings = allSettings.get('controlbtn').composite as PartialJSONObject  ?? allSettings.default('controlbtn') as PartialJSONObject;
 
-
     let enabled = settings.enabled as boolean;
     let rank = settings.rank as number;
 

@@ -75,7 +75,6 @@ class OpensarlabNotifyWidget extends Widget {
 export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.ISettings): Promise<void> {
 
     const settings = allSettings.get('oslnotify').composite as PartialJSONObject ?? allSettings.default('oslnotify') as PartialJSONObject;
-    ;
 
     let enabled = settings.enabled as boolean;
     let note_type = settings.note_type as string;

@@ -28,7 +28,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
       return; 
     }
 
-    Promise.all([
+    Promise
+      .all([
           app.restored, 
           settingRegistry.load(plugin.id)
       ])
@@ -49,6 +50,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
         settings.changed.connect(loadSettings);
 
         console.log("JupyterLab extension opensarlab_frontend is fully operational!");
+      })
+      .catch((reason) => {
+        console.error(`Something went wrong...${reason}`)
       });
   }
 };

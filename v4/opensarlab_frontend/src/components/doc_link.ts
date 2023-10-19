@@ -30,7 +30,6 @@ class DocsAnchorWidget extends Widget {
 export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.ISettings): Promise<void> {
 
         const settings = allSettings.get('doc_link').composite as PartialJSONObject ?? allSettings.default('doc_link') as PartialJSONObject;
-        ;
 
         let enabled = settings.enabled as boolean;
         let rank = settings.rank as number;
