@@ -22,3 +22,5 @@ mamba deactivate
 mamba create -n $NAME_OF_EXTENSION --override-channels --strict-channel-priority -c conda-forge jupyterlab=4 nodejs=18
 mamba activate $NAME_OF_EXTENSION
 ```
+
+If there is a `dev-build.sh` file included, use that to build. Update the dependencies at the top of the file. Run by `bash dev-build.sh`.
