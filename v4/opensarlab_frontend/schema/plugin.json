@@ -9,6 +9,7 @@
       "type": "object",
       "title": "GIF Cap Button",
       "description": "Button to GIF capture webpage",
+      "default": {},
       "properties": {
         "enabled": {
           "type": "boolean",
