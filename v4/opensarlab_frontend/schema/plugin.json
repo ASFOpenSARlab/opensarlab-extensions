@@ -3,6 +3,7 @@
   "title": "opensarlab_frontend",
   "description": "opensarlab_frontend settings.",
   "type": "object",
+  "default": {},
   "properties": {
     "gifcap_btn": {
       "type": "object",
@@ -28,6 +29,7 @@
       "type": "object",
       "title": "OSL Profile Label",
       "description": "Label describing the OSL profile name",
+      "default": {},
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -48,6 +50,7 @@
       "type": "object",
       "title": "OSL Doc Link",
       "description": "Hyperlink to OSL Documentation",
+      "default": {},
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -68,6 +71,7 @@
       "type": "object",
       "title": "Control Button",
       "description": "Button to Log Out/Stop Server page",
+      "default": {},
       "properties": {
         "enabled": {
           "type": "boolean",
@@ -88,6 +92,7 @@
       "type": "object",
       "title": "OSL Notifications",
       "description": "Type of notifications to display",
+      "default": {},
       "properties": {
         "enabled": {
           "type": "boolean",
