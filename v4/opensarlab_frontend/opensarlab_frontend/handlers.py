@@ -15,5 +15,9 @@ def setup_handlers(web_app, url_path=None):
     from .handles.profile_label import setup_handlers as setup_profile_label
     handlers += setup_profile_label(base_url)
 
+    # Control Button
+    from .handles.controlbtn import setup_handlers as setup_controlbtn
+    handlers += setup_controlbtn(base_url)
+
     host_pattern = ".*$"
     web_app.add_handlers(host_pattern, handlers) 

@@ -45,10 +45,8 @@ export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.I
         return;
     }
 
-    let data = null;
     try {
-        data = await requestAPI<any>('opensarlab-profile-label');
-        console.log(data);
+        let data = await requestAPI<any>('opensarlab-profile-label');
 
         const opensarlabProfileLabelWidget = new OpensarlabProfileLabelWidget();
         opensarlabProfileLabelWidget.id = widget_id;

@@ -1,10 +1,12 @@
 import json
 import os
+import logging
+
+logging.basicConfig(format='%(filename)s %(asctime)s %(message)s')
 
 from jupyter_server.base.handlers import APIHandler
 from jupyter_server.utils import url_path_join
 import tornado
-
 
 from .oslnotify_lib import calendar
 from .oslnotify_lib import storage
@@ -24,6 +26,15 @@ class RouteHandler(APIHandler):
         profile_name = os.environ.get('OPENSARLAB_PROFILE_NAME', '')
         lab_short_name = os.environ.get('OPENSCIENCELAB_LAB_SHORT_NAME', '')
         portal_domain = os.environ.get('OPENSCIENCELAB_PORTAL_DOMAIN', '')
+
+        if not profile_name:
+            logging.warning("Environ variable 'OPENSARLAB_PROFILE_NAME' not found.")
+
+        if not lab_short_name:
+            logging.warning("Environ variable 'OPENSCIENCELAB_LAB_SHORT_NAME' not found.")
+
+        if not portal_domain:
+            logging.warning("Environ variable 'OPENSCIENCELAB_PORTAL_DOMAIN' not found.")
 
         events = []
 

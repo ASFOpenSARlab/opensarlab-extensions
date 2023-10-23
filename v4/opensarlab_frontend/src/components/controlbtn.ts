@@ -12,6 +12,8 @@ import {
   ToolbarButton
 } from '@jupyterlab/apputils';
 
+import { requestAPI } from './handler';
+
 export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.ISettings): Promise<void> {
 
     const settings = allSettings.get('controlbtn').composite as PartialJSONObject  ?? allSettings.default('controlbtn') as PartialJSONObject;
@@ -31,19 +33,28 @@ export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.I
       return;
     }
 
-    const serverBtn = new ToolbarButton({
-      className: 'opensarlab-controlbtn',
-      label: 'Shutdown and Logout Page',
-      onClick: () => {
-        window.location.href = '/hub/home';
-      },
-      tooltip: 'Hub Control Panel: A place to stop the server and logout'
-    });
-    serverBtn.id = widget_id;
-    serverBtn.addClass('opensarlab-frontend-object');
+    try {
+        let data = await requestAPI<any>('opensarlab-controlbtn');
 
-    app.shell.add(serverBtn, 'top', {rank:rank});
+        const serverBtn = new ToolbarButton({
+          className: 'opensarlab-controlbtn',
+          label: 'Shutdown and Logout Page',
+          onClick: () => {
+            window.location.href = data['data'];
+          },
+          tooltip: 'Hub Control Panel: A place to stop the server and logout'
+        });
+        serverBtn.id = widget_id;
+        serverBtn.addClass('opensarlab-frontend-object');
     
-    console.log('JupyterLab extension opensarlab-frontend:controlbtn is activated!');
+        app.shell.add(serverBtn, 'top', {rank:rank});
+    
+        console.log('JupyterLab extension opensarlab-frontend:controlbtn is activated!');
+
+    } catch (reason) {
+        console.error(
+            `Error on GET /opensarlab-frontend/opensarlab-controlbtn.\n${reason}`
+        );
+    }
   
   }

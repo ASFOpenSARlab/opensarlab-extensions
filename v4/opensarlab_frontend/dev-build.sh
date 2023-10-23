@@ -27,7 +27,7 @@ ENV_VARS=(
     # Escape single quotes ( ' => \' )
     OPENSARLAB_PROFILE_NAME=\'SAR 1\'
     OPENSCIENCELAB_LAB_SHORT_NAME=\'opensarlab-test\'
-    OPENSCIENCELAB_PORTAL_DOMAIN=\'https://opensciencelab-test.asf.alaska.edu\'
+    #OPENSCIENCELAB_PORTAL_DOMAIN=\'https://opensciencelab-test.asf.alaska.edu\'
 )
 
 ## 5.
