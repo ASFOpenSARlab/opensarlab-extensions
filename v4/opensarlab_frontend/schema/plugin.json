@@ -5,6 +5,46 @@
   "type": "object",
   "default": {},
   "properties": {
+
+    "diskspace": {
+      "type": "object",
+      "title": "Disk Space Values",
+      "description": "Show the disk space available",
+      "default": {},
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "title": "Enabled",
+          "description": "Enable/Disable feature",
+          "default": true
+        },
+        "rank": {
+          "type": "number",
+          "title": "Relative Rank",
+          "description": "Relative rank of feature. The bigger the number, the further to the right.",
+          "default": 1010
+        },
+        "setCriticalThreshold": {
+          "type": "number",
+          "title": "Critical Threshold",
+          "description": "Percentage threshold above which the disk space background is red and blinking",
+          "default": 95
+        },
+        "setDangerThreshold": {
+          "type": "number",
+          "title": "Danger Threshold",
+          "description": "Percentage threshold above which the disk space background is red",
+          "default": 90
+        },
+        "setWarningThreshold": {
+          "type": "number",
+          "title": "Warning Threshold",
+          "description": "Percentage threshold above which the disk space background is yellow",
+          "default": 80
+        }
+      }
+    },
+
     "gifcap_btn": {
       "type": "object",
       "title": "GIF Cap Button",

@@ -10,6 +10,7 @@ import { main as doc_link } from './components/doc_link';
 import { main as profile_label } from './components/profile_label'
 import { main as oslnotify } from './components/oslnotify';
 import { main as gifcap_btn } from './components/gifcap_btn';
+import { main as diskspace } from './components/diskspace';
 
 /**
  * Initialization data for the opensarlab_frontend extension.
@@ -41,6 +42,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
           await doc_link(app, allSettings);
           await controlbtn(app, allSettings);
           await oslnotify(app, allSettings);
+          await diskspace(app, allSettings);
         }
 
         // Read the settings

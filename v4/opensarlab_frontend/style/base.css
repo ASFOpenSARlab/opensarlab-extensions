@@ -5,6 +5,72 @@
 */
 
 /*****
+    opensarlab-diskspace
+*/
+.diskspace {
+    position: relative;
+    display: inline-block;
+    /*border-bottom: 1px dotted black;*/
+}
+
+.diskspace .red {
+    background-color: rgba(255, 200, 200, 0.75);
+    padding: 5px;
+    border-radius: 25px;
+}
+
+.diskspace .yellow {
+    background-color: rgba(255, 255, 200, 0.75);
+    padding: 5px;
+    border-radius: 25px;
+}
+
+.diskspace .blink-me {  
+    animation: blinker-me-blinker 2s linear infinite;
+}
+
+@keyframes blinker-me-blinker {  
+    50% {    
+        opacity: 0;  
+    }
+}
+
+/*
+.diskspace .diskspace-tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.diskspace .diskspace-tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.diskspace:hover .diskspace-tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+*/
+
+/*****
     opensarlab-controlbtn
 */
 button.opensarlab-controlbtn {

@@ -19,5 +19,9 @@ def setup_handlers(web_app, url_path=None):
     from .handles.controlbtn import setup_handlers as setup_controlbtn
     handlers += setup_controlbtn(base_url)
 
+    # Disk Space label
+    from .handles.disk_space import setup_handlers as setup_diskspace
+    handlers += setup_diskspace(base_url)
+
     host_pattern = ".*$"
     web_app.add_handlers(host_pattern, handlers) 
