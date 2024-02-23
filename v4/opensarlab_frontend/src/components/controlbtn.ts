@@ -47,7 +47,7 @@ export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.I
         serverBtn.id = widget_id;
         serverBtn.addClass('opensarlab-frontend-object');
     
-        app.shell.add(serverBtn, 'top', {rank:rank});
+        app.shell.add(serverBtn as any, 'top', {rank:rank});
     
         console.log('JupyterLab extension opensarlab-frontend:controlbtn is activated!');
 

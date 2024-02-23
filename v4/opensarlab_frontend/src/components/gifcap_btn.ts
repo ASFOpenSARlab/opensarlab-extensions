@@ -43,7 +43,7 @@ export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.I
     gifcapBtn.id = widget_id;
     gifcapBtn.addClass('opensarlab-frontend-object')
 
-    app.shell.add(gifcapBtn, 'top', {rank:rank});
+    app.shell.add(gifcapBtn as any, 'top', {rank:rank});
 
     console.log('JupyterLab extension opensarlab-frontend:gifcap_btn is activated!');      
   };

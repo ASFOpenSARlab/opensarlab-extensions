@@ -48,7 +48,7 @@ export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.I
     
         const docLinkWidget = new DocsAnchorWidget();
         docLinkWidget.id = widget_id;
-        app.shell.add(docLinkWidget, 'top', {rank:rank});
+        app.shell.add(docLinkWidget as any, 'top', {rank:rank});
     
         console.log('JupyterLab extension opensarlab-frontend:doc_link is activated!');
     };

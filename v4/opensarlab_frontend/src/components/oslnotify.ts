@@ -95,7 +95,7 @@ export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.I
     opensarlabNotifyWidget.id = widget_id;
     opensarlabNotifyWidget.notifications(note_type);
 
-    app.shell.add(opensarlabNotifyWidget, 'top', {rank:1999});
+    app.shell.add(opensarlabNotifyWidget as any, 'top', {rank:1999});
 
     console.log('JupyterLab extension opensarlab-frontend:oslnotify is activated!');
 }

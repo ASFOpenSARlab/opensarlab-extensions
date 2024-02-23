@@ -52,7 +52,7 @@ export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.I
         opensarlabProfileLabelWidget.id = widget_id;
         opensarlabProfileLabelWidget.span.innerText = data['data'];
     
-        app.shell.add(opensarlabProfileLabelWidget, 'top', {rank:rank});
+        app.shell.add(opensarlabProfileLabelWidget as any, 'top', {rank:rank});
     
         console.log('JupyterLab extension opensarlab-frontend:profile_label is activated!');
 
