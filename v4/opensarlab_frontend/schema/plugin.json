@@ -28,19 +28,19 @@
           "type": "number",
           "title": "Critical Threshold",
           "description": "Percentage threshold above which the disk space background is red and blinking",
-          "default": 95
+          "default": 90
         },
         "setDangerThreshold": {
           "type": "number",
           "title": "Danger Threshold",
           "description": "Percentage threshold above which the disk space background is red",
-          "default": 90
+          "default": 85
         },
         "setWarningThreshold": {
           "type": "number",
           "title": "Warning Threshold",
           "description": "Percentage threshold above which the disk space background is yellow",
-          "default": 80
+          "default": 70
         }
       }
     },
