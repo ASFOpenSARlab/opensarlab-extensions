@@ -18,17 +18,26 @@ class RouteHandler(APIHandler):
         """
         /opensarlab-frontend/opensarlab-diskspace
         """
-        disk_space_path = os.environ.get('OPENSCIENCELAB_DISKSPACE_PATH', '/home/jovyan')
 
-        total, used, free = shutil.disk_usage(disk_space_path)
-           
-        self.finish(json.dumps({
-            "data": {
-                "total": total,
-                "used": used,
-                "free": free
-            }
-        }))
+        try:
+            disk_space_path = self.get_query_argument('path')
+
+            total, used, free = shutil.disk_usage(disk_space_path)
+            
+            self.finish(json.dumps({
+                "data": {
+                    "total": total,
+                    "used": used,
+                    "free": free
+                }
+            }))
+        
+        except FileNotFoundError as e:
+            logging.error(f"Path '{disk_space_path}' not found. Cannot get disk space usage.")
+            exit
+
+        except Exception as e:
+            logging.error(f"Cannot handle error: {e}")
 
 def setup_handlers(base_url, url_path=None):
     route_pattern = url_path_join(base_url, "opensarlab-diskspace")

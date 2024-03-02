@@ -41,6 +41,12 @@
           "title": "Warning Threshold",
           "description": "Percentage threshold above which the disk space background is yellow",
           "default": 70
+        },
+        "diskSpacePath": {
+          "type": "string",
+          "title": "Disk Space Device Path",
+          "description": "File path to storage device. By default set to /home/jovyan.",
+          "default": "/home/jovyan"
         }
       }
     },

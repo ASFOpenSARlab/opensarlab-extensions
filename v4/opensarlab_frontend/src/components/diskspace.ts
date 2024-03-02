@@ -13,89 +13,107 @@ import { Widget } from '@lumino/widgets';
 import { requestAPI } from './handler';
 
 class DiskSpaceWidget extends Widget {
+
+  private btyes_to_mb: number;
+  private outerDiv: HTMLDivElement;
+  private innerDiv: HTMLDivElement;
+  private setIntervalKeeper: number;
+  private diskSpaceInterval: number;
+
   constructor(settings: any) {
     super();
 
-    let outerDiv = document.createElement('div')
-    outerDiv.className = "diskspace"
-
-    let innerDiv = document.createElement('div')
-    innerDiv.className = "diskspace-tooltip-text"
+    this.btyes_to_mb = 1.0 / (1024 * 1024);
+    this.outerDiv = document.createElement('div');
+    this.innerDiv = document.createElement('div');
+    this.outerDiv.className = "diskspace";
+    this.innerDiv.className = "diskspace-tooltip-text";
+    this.setIntervalKeeper = 0;
+    this.diskSpaceInterval = 5000; //ms
 
     this.addClass('opensarlab-frontend-object');
-    this.node.appendChild(outerDiv);
+    this.node.appendChild(this.outerDiv);
 
-    const btyes_to_mb = 1.0 / (1024 * 1024)
-
-    checkDiskSpaceInterval(settings)
-    setInterval(
-      checkDiskSpaceInterval,
-      5000,
+    this.checkDiskSpaceInterval(settings);
+    this.setIntervalKeeper = window.setInterval(
+      this.checkDiskSpaceInterval.bind(this),
+      this.diskSpaceInterval,
       settings
-    )
+    );
+  }
 
-    async function checkDiskSpaceInterval (settings: any) {
+  removeSetInterval (): void {
+    window.clearInterval(this.setIntervalKeeper);
+  }
 
-      let data = await requestAPI<any>('opensarlab-diskspace');
-      data = data['data']
-  
-      const total = data['total']
-      const used = data['used']
-      const free = data['free']
-  
-      const percentUsed = used/total * 100
-  
-      let statusColorClass = ''
-      let statusBlinkClass = ''
+  async checkDiskSpaceInterval (settings: any) : Promise<void> {
 
-      let setCriticalThreshold = settings.setCriticalThreshold as number;
-      let setDangerThreshold = settings.setDangerThreshold as number;
-      let setWarningThreshold = settings.setWarningThreshold as number;
-  
-      if ( percentUsed >= setCriticalThreshold ) {
-        statusColorClass = 'red'
-        statusBlinkClass = 'blink-me'
-      }
-      else if ( percentUsed >= setDangerThreshold ) {
-        statusColorClass = 'red'
-      }
-      else if ( percentUsed >= setWarningThreshold ) {
-        statusColorClass = 'yellow'
-      }
-  
-      // span gives disk storage percent remaining
-      outerDiv.innerHTML = `
-        <span class="${ statusBlinkClass } ${ statusColorClass }">
-          Disk space used: ${ percentUsed.toFixed(2).toString() }%
-        </span>
-      `
-  
-      // popup gives all the data
-      innerDiv.innerHTML = `
-        <div> Free MB: ${ (free / btyes_to_mb).toFixed(2) } </div>
-        <div> Used MB: ${ (used / btyes_to_mb).toFixed(2) } </div>
-        <div> Total MB: ${ (total / btyes_to_mb).toFixed(2) } </div>
-      `
-      //*** Until the popup renders properly, we are not using it
-      /// this.outerDiv.appendChild(this.innerDiv)
+    let setCriticalThreshold: number = settings.setCriticalThreshold as number;
+    let setDangerThreshold: number = settings.setDangerThreshold as number;
+    let setWarningThreshold: number = settings.setWarningThreshold as number;
+    let diskSpacePath: string = settings.diskSpacePath as string;
+
+    let data: any = await requestAPI<any>(`opensarlab-diskspace?path=${diskSpacePath}`);
+
+    if (!data) {
+      console.warn(`No diskspace data returned by API call for path ${diskSpacePath}.`);
+      return;
     }
+
+    data = data['data'];
+    const total: number = data['total'] || null;
+    const used: number = data['used'] || null;
+    const free: number = data['free'] || null;
+    const percentUsed: number = used/total * 100;
+
+    let statusColorClass: string = '';
+    let statusBlinkClass: string = '';
+
+    if ( percentUsed >= setCriticalThreshold ) {
+      statusColorClass = 'red';
+      statusBlinkClass = 'blink-me';
+    }
+    else if ( percentUsed >= setDangerThreshold ) {
+      statusColorClass = 'red';
+    }
+    else if ( percentUsed >= setWarningThreshold ) {
+      statusColorClass = 'yellow';
+    }
+
+    // span gives disk storage percent remaining
+    this.outerDiv.innerHTML = `
+      <span class="${ statusBlinkClass } ${ statusColorClass }">
+        Disk space used: ${ percentUsed.toFixed(2).toString() }%
+      </span>
+    `;
+
+    // popup gives all the data
+    this.innerDiv.innerHTML = `
+      <div> Free MB: ${ (free / this.btyes_to_mb).toFixed(2) } </div>
+      <div> Used MB: ${ (used / this.btyes_to_mb).toFixed(2) } </div>
+      <div> Total MB: ${ (total / this.btyes_to_mb).toFixed(2) } </div>
+    `;
+
+    //*** Until the popup renders properly, we are not using it
+    /// this.outerDiv.appendChild(this.innerDiv);
   }
 }
 
 export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.ISettings): Promise<void> {
 
-  const settings = allSettings.get('diskspace').composite as PartialJSONObject ?? allSettings.default('diskspace') as PartialJSONObject;
+  const settings: PartialJSONObject = allSettings.get('diskspace').composite as PartialJSONObject ?? allSettings.default('diskspace') as PartialJSONObject;
 
-  let enabled = settings.enabled as boolean;
-  let rank = settings.rank as number;
+  let enabled: boolean = settings.enabled as boolean;
+  let rank: number = settings.rank as number;
 
-  const widget_id = 'opensarlab-diskspace-widget'
+  const widget_id: string = 'opensarlab-diskspace-widget';
+  const widgetPlacement: string = 'top';
 
-  const widgetPlacement = 'top'
-
-  const widget = find(app.shell.widgets(widgetPlacement), w => w.id === widget_id);
-  if (widget) {
-      widget.dispose()
+  const opensarlabdiskspaceWidget: any = find(app.shell.widgets(widgetPlacement), w => w.id === widget_id);
+  if (opensarlabdiskspaceWidget) {
+    // If disposing of widget, remove setInterval manually since it is part of window and not widget
+    opensarlabdiskspaceWidget.removeSetInterval();
+    opensarlabdiskspaceWidget.dispose();
   } 
 
   if(!enabled) {
@@ -104,10 +122,10 @@ export async function main(app: JupyterFrontEnd, allSettings: ISettingRegistry.I
   }
 
   try {
-      const opensarlabdiskspaceSpanWidget = new DiskSpaceWidget(settings);
-      opensarlabdiskspaceSpanWidget.id = widget_id;
+      const opensarlabdiskspaceWidget: DiskSpaceWidget = new DiskSpaceWidget(settings);
+      opensarlabdiskspaceWidget.id = widget_id;
   
-      app.shell.add(opensarlabdiskspaceSpanWidget as any, widgetPlacement, {rank:rank});
+      app.shell.add(opensarlabdiskspaceWidget as any, widgetPlacement, {rank:rank});
   
       console.log('JupyterLab extension opensarlab-frontend:diskspace is activated!');
 
