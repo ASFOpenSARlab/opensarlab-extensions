@@ -1,0 +1,19 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.0.4
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: emlundell@alaska.edu
+author_name: OpenSARLab
+data_format: string
+file_extension: ''
+has_binder: false
+has_settings: false
+kind: server
+labextension_name: opensarlab_notifications
+mimetype: ''
+mimetype_name: ''
+project_short_description: Endpoint for storage and calendar notifications
+python_name: opensarlab_notifications
+repository: ''
+test: false
+viewer_name: ''
+
