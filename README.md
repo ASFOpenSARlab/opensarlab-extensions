@@ -30,6 +30,16 @@ A toast is shown on page load from two sources:
 
 A button that links to `gifcap.dev`. Users can screen capture and then save as a GIF. The recording is purely client-side in the browser.
 
+### Disk Space
+
+Display percent of remaining disk space. The values update every 5 seconds. Depending on settings, the display performs differently based on percent usage:
+
+0  - 70%: Text on transparent background
+70 - 85%: Text on yellow background
+85 - 90%: Text on red background
+91 - 99%: Blinking text on red background
+
+Settings can be changed in the JupyterLab Advance Settings under _opensarlab-frontend_.
 
 # v3
 
