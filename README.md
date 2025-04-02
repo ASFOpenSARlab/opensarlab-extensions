@@ -40,7 +40,3 @@ Display percent of remaining disk space. The values update every 5 seconds. Depe
 91 - 99%: Blinking text on red background
 
 Settings can be changed in the JupyterLab Advance Settings under _opensarlab-frontend_.
-
-# v3
-
-Lab extensions for JupyterLab 3 are archived for reference. However, they are not compatible with JupyterLab 4.
