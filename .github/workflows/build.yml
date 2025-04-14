@@ -78,7 +78,7 @@ jobs:
           sudo rm -rf $(which node)
           sudo rm -rf $(which node)
 
-          pip install "jupyterlab>=4.0.0,<5" opensarlab_frontend*.whl
+          pip install "jupyterlab>=4.0.0,<5" opensarlab_frontend
 
           jupyter server extension list
           jupyter server extension list 2>&1 | grep -ie "opensarlab_frontend.*OK"
