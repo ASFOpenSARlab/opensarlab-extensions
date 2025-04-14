@@ -1,6 +1,7 @@
+---
 name: Update Playwright Snapshots
 
-on:
+on:  # yamllint disable-line rule:truthy
   issue_comment:
     types: [created, edited]
 
