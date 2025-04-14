@@ -1,6 +1,8 @@
 ---
 
-ignore-from-file: .gitignore
+ignore: |
+    .copier-answers.yml
+    node_modules/
 
 extends: default
 

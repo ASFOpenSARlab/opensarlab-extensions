@@ -1,5 +1,6 @@
+---
 name: "Step 1: Prep Release"
-on:
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       version_spec:
@@ -37,5 +38,5 @@ jobs:
           since_last_stable: ${{ github.event.inputs.since_last_stable }}
 
       - name: "** Next Step **"
-        run: |
+        run: |-
           echo "Optional): Review Draft Release: ${{ steps.prep-release.outputs.release_url }}"
