@@ -9,8 +9,11 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest]
 
+    runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -48,9 +51,9 @@ jobs:
           pip uninstall -y "opensarlab_frontend" jupyterlab
 
       - name: Upload extension packages
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: extension-artifacts
+          name: extension-artifacts-${{ matrix.runs-on }}
           path: dist/opensarlab_frontend*
           if-no-files-found: error
 
@@ -64,9 +67,10 @@ jobs:
         with:
           python-version: '3.9'
           architecture: 'x64'
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
-          name: extension-artifacts
+          pattern: extension-artifacts-*
+          match-multiple: true
       - name: Install and Test
         run: |
           set -eux
