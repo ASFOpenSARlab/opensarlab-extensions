@@ -5,6 +5,7 @@
   "type": "object",
   "default": {},
   "properties": {
+    
     "diskspace": {
       "type": "object",
       "title": "Disk Space Values",
