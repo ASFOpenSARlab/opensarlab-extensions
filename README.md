@@ -85,7 +85,7 @@ If there is a `dev-build.sh` file included, use that to build. Update the depend
 
 # opensarlab_frontend
 
-[![Github Actions Status](https://github.com/ASFOpenSARlab/opensarlab-extensions/blob/main/README.md/workflows/Build/badge.svg)](https://github.com/ASFOpenSARlab/opensarlab-extensions/blob/main/README.md/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/ASFOpenSARlab/opensarlab-extensions/.github/workflows/build.yml/badge.svg)](https://github.com/ASFOpenSARlab/opensarlab-extensions/.github/workflows/build.yml)
 A JupyterLab extension.
 
 This extension is composed of a Python package named `opensarlab_frontend`
