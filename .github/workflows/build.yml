@@ -53,6 +53,22 @@ jobs:
           path: dist/opensarlab_frontend*
           if-no-files-found: error
 
+  python-linting:
+    uses: ASFOpenSARlab/osl-utils/.github/workflows/reusable-code-quality-python.yaml@v0.0.9
+    with:
+      # The osl-utils docker tag. Can also be `dev`, initials, etc. Should match the tag above in prod.
+      osl-utils-tag: v0.0.9
+  shell-linting:
+    uses: ASFOpenSARlab/osl-utils/.github/workflows/reusable-code-quality-shell.yaml@v0.0.9
+    with:
+      # The osl-utils docker tag. Can also be `dev`, initials, etc. Should match the tag above in prod.
+      osl-utils-tag: v0.0.9
+  yaml-linting:
+    uses: ASFOpenSARlab/osl-utils/.github/workflows/reusable-code-quality-yaml.yaml@v0.0.9
+    with:
+      # The osl-utils docker tag. Can also be `dev`, initials, etc. Should match the tag above in prod.
+      osl-utils-tag: v0.0.9
+
   test_isolated:
     needs: build
     runs-on: ubuntu-latest
