@@ -1,5 +1,6 @@
+---
 name: "Step 2: Publish Release"
-on:
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       branch:
@@ -52,6 +53,6 @@ jobs:
 
       - name: "** Failure Message **"
         if: ${{ failure() }}
-        run: |
+        run: |-
           echo "Failed to Publish the Draft Release Url:"
           echo ${{ steps.populate-release.outputs.release_url }}
