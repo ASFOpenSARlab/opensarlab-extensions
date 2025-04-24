@@ -3,6 +3,9 @@ name: "Step 2: Publish Release"
 on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
+      environment:
+        description: "GitHub environment to use for secrets and variables"
+        required: true
       branch:
         description: "The target branch"
         required: false
@@ -16,6 +19,7 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   publish_release:
     runs-on: ubuntu-latest
+    environment:  ${{ github.event.inputs.environment }}
     permissions:
       # This is useful if you want to use PyPI trusted publisher
       # and NPM provenance
@@ -45,7 +49,7 @@ jobs:
           # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         uses: jupyter-server/jupyter-releaser/.github/actions/finalize-release@v2
         with:
-          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+          token: ${{ secrets.PUBLISH_GITHUB_PAT }}
           release_url: ${{ steps.populate-release.outputs.release_url }}
 
       - name: "** Next Step **"
