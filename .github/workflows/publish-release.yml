@@ -21,10 +21,10 @@ jobs:
   publish_release:
     runs-on: ubuntu-latest
     environment:  ${{ github.event.inputs.environment }}
-    permissions:
-      # This is useful if you want to use PyPI trusted publisher
-      # and NPM provenance
-      id-token: write
+    # permissions:
+      # # This is useful if you want to use PyPI trusted publisher
+      # # and NPM provenance
+      # id-token: write # Removed since not using NPM
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
