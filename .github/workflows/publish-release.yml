@@ -63,16 +63,16 @@ jobs:
         uses: jupyter-server/jupyter-releaser/.github/actions/finalize-release@v2
         with:
           token: ${{ secrets.PUBLISH_GITHUB_PAT }}
-          release_url: ${{ steps.populate-release.outputs.release_url }}
+          # release_url: ${{ steps.populate-release.outputs.release_url }}
 
       - name: "** Next Step **"
         if: ${{ success() }}
         run: |
           echo "Verify the final release"
-          echo ${{ steps.finalize-release.outputs.release_url }}
+          # echo ${{ steps.finalize-release.outputs.release_url }}
 
       - name: "** Failure Message **"
         if: ${{ failure() }}
         run: |-
           echo "Failed to Publish the Draft Release Url:"
-          echo ${{ steps.populate-release.outputs.release_url }}
+          # echo ${{ steps.populate-release.outputs.release_url }}
