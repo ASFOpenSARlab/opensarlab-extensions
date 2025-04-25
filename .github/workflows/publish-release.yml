@@ -1,4 +1,4 @@
-name: "Publish Frontend To PyPI"
+name: "Build and Publish Frontend To PyPI"
 on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
@@ -18,6 +18,20 @@ jobs:
       id-token: write
     steps:
       # retrieve your distributions here
+
+      - name: Install Dependencies
+        run: |
+          pip install build twine hatch
+
+      - name: Setup
+        run: |
+          hatch version 1.5.2
+          jlpm clean:all
+          git clean -dfX
+
+      - name: Build
+        run: |
+          python -m build
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
