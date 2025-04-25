@@ -60,7 +60,6 @@ jobs:
           TWINE_USERNAME: __token__
           # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           TWINE_REPOSITORY_URL: $TWINE_REPOSITORY_URL
-          TWINE_CMD: pipx run twine upload --repository-url=https://test.pypi.org/legacy/
         uses: jupyter-server/jupyter-releaser/.github/actions/finalize-release@v2
         with:
           token: ${{ secrets.PUBLISH_GITHUB_PAT }}
