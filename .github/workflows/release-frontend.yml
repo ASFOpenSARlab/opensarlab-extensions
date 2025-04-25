@@ -6,6 +6,13 @@ on:  # yamllint disable-line rule:truthy
         description: "GitHub environment to use for secrets and variables"
         default: "test"
         required: true
+  workflow_call:
+    inputs:
+      environment:
+        description: "GitHub environment to use for secrets and variables"
+        type: string
+        default: "test"
+        required: true
 
 jobs:
   pypi-publish:
