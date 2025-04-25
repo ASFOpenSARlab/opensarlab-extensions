@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install build twine hatch jlpm
+          pip install build twine hatch jupyterlab
 
       - name: Setup
         run: |
