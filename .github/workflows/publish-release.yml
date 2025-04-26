@@ -27,9 +27,8 @@ jobs:
 
       - name: Setup
         run: |
+          echo "Updating Version"
           hatch version 1.5.4a3
-          jlpm clean:all
-          git clean -dfX
 
       - name: Build
         run: |
