@@ -6,6 +6,10 @@ on:  # yamllint disable-line rule:truthy
         description: "GitHub environment to use for secrets and variables"
         default: "test"
         required: true
+      version:
+        description: "Version of the package"
+        required: true
+
 
 jobs:
   pypi-publish:
@@ -28,7 +32,7 @@ jobs:
       - name: Setup
         run: |
           echo "Updating Version"
-          hatch version 1.5.4a3
+          hatch version ${{ github.event.inputs.version }}
 
       - name: Build
         run: |
