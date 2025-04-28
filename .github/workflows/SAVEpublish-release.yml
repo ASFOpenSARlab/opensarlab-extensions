@@ -20,7 +20,7 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   publish_release:
     runs-on: ubuntu-latest
-    environment:  ${{ github.event.inputs.environment }}
+    environment: ${{ github.event.inputs.environment }}
     permissions:
       # This is useful if you want to use PyPI trusted publisher
       # and NPM provenance
@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        
+
       - uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
       - name: Populate Release
@@ -49,7 +49,6 @@ jobs:
       #     else
       #       echo "TWINE_REPOSITORY_URL=https://test.pypi.org/legacy/" >> $GITHUB_ENV
       #     fi
-
 
       - name: Finalize Release
         id: finalize-release
