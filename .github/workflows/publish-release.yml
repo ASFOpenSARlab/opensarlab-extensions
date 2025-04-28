@@ -43,29 +43,3 @@ jobs:
         with:
           password: ${{ secrets.PYPI_TOKEN }}
           repository-url: https://test.pypi.org/legacy/
-
-
-# jobs:
-#   publish_release:
-#     runs-on: ubuntu-latest
-#     environment: ${{ github.event.inputs.environment }}
-#     steps:
-#       - name: Checkout Code
-#         uses: actions/checkout@v4
-
-#       - name: Upload Python
-#         run: |
-#           python3 -m pip install --upgrade build
-#           python3 -m build
-          
-#       - name: Upload Distribution Archives
-#         run: |
-#           python3 -m pip install --upgrade twine
-          
-#           if [${{ github.event.inputs.environment == 'prod' }}]; then
-#             echo "TWINE_REPOSITORY_URL=https://pypi.org/legacy/" >> $GITHUB_ENV
-#           else
-#             echo "TWINE_REPOSITORY_URL=https://test.pypi.org/legacy/" >> $GITHUB_ENV
-#           fi
-#           python3 -m twine upload --repository testpypi dist/*
-

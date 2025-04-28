@@ -69,6 +69,7 @@ jobs:
       # The osl-utils docker tag. Can also be `dev`, initials, etc. Should match the tag above in prod.
       osl-utils-tag: v0.0.9
 
+
   test_isolated:
     needs: build
     runs-on: ubuntu-latest
