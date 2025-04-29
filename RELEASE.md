@@ -1,6 +1,6 @@
 # Making a new release of opensarlab_frontend
 
-The extension can be published to `PyPI` and `npm` manually or using the [Jupyter Releaser](https://github.com/jupyter-server/jupyter_releaser).
+The extension can be published to `PyPI` and `npm` manually or by calling the `release-frontend` GitHub action to release on `PyPI`.
 
 ## Manual release
 
@@ -56,53 +56,37 @@ npm login
 npm publish --access public
 ```
 
-## Automated releases with the Jupyter Releaser
+## Automated releases with GitHub Actions
 
-The extension repository should already be compatible with the Jupyter Releaser.
+### Setting up your project to deploy using PyPI Trusted Publisher
 
-Check out the [workflow documentation](https://jupyter-releaser.readthedocs.io/en/latest/get_started/making_release_from_repo.html) for more information.
-
-Here is a summary of the steps to cut a new release:
-
-- Add tokens to the [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in the repository:
-  - `ADMIN_GITHUB_TOKEN` (with "public_repo" and "repo:status" permissions); see the [documentation](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-  - `NPM_TOKEN` (with "automation" permission); see the [documentation](https://docs.npmjs.com/creating-and-viewing-access-tokens)
 - Set up PyPI
+  - Create PyPI project
+  - In Manage mode on PyPI project, click `Publishing` and add new GitHub Trusted Publisher
+    - Set Workflow name to `release-frontend.yml`
+    - Set Environment name to the environment your action will be using (Usually prod or test) 
+  - Create access token for your User
+    - In Account Settings, click on `Add API token`
+    - Set its scope to your project only
+    - Save your PyPI token for the next step
 
-<details><summary>Using PyPI trusted publisher (modern way)</summary>
+- Set up GitHub Environment
+  - Create a [GitHub Environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment)
+    - Go to your repository settings
+    - Under `Code and automation` select environment
+    - Click `New Environment` and provide a name
+  - In your GitHub Environment
+    - Add token to the [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in the repository:
+      - `PYPI_TOKEN` (Your PyPI token created in when setting up PyPI)
+    - Add to the [Github Variables](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) in the repository:
+      - `REPOSITORY_URL` (The repository you will be uploading to, probably https://pypi.org/legacy/)
 
-- Set up your PyPI project by [adding a trusted publisher](https://docs.pypi.org/trusted-publishers/adding-a-publisher/)
-  - The _workflow name_ is `publish-release.yml` and the _environment_ should be left blank.
-- Ensure the publish release job as `permissions`: `id-token : write` (see the [documentation](https://docs.pypi.org/trusted-publishers/using-a-publisher/))
+### Deploying Using GitHub Action
 
-</details>
-
-<details><summary>Using PyPI token (legacy way)</summary>
-
-- If the repo generates PyPI release(s), create a scoped PyPI [token](https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/#saving-credentials-on-github). We recommend using a scoped token for security reasons.
-
-- You can store the token as `PYPI_TOKEN` in your fork's `Secrets`.
-
-  - Advanced usage: if you are releasing multiple repos, you can create a secret named `PYPI_TOKEN_MAP` instead of `PYPI_TOKEN` that is formatted as follows:
-
-    ```text
-    owner1/repo1,token1
-    owner2/repo2,token2
-    ```
-
-    If you have multiple Python packages in the same repository, you can point to them as follows:
-
-    ```text
-    owner1/repo1/path/to/package1,token1
-    owner1/repo1/path/to/package2,token2
-    ```
-
-</details>
-
-- Go to the Actions panel
-- Run the "Step 1: Prep Release" workflow
-- Check the draft changelog
-- Run the "Step 2: Publish Release" workflow
+- Go to GitHub Actions panel
+- Select `Build and Publish Frontend To PyPI` action manually and run using workflow_dispatch
+  - Set `environment` to the name the environment with your secrets and variables
+  - Set `version` to the new version of your package
 
 ## Publishing to `conda-forge`
 
