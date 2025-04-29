@@ -61,10 +61,11 @@ npm publish --access public
 ### Setting up your project to deploy using PyPI Trusted Publisher
 
 - Set up PyPI
+
   - Create PyPI project
   - In Manage mode on PyPI project, click `Publishing` and add new GitHub Trusted Publisher
     - Set Workflow name to `release-frontend.yml`
-    - Set Environment name to the environment your action will be using (Usually prod or test) 
+    - Set Environment name to the environment your action will be using (Usually prod or test)
   - Create access token for your User
     - In Account Settings, click on `Add API token`
     - Set its scope to your project only
