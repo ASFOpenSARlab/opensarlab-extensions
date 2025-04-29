@@ -79,7 +79,7 @@ npm publish --access public
     - Add token to the [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in the repository:
       - `PYPI_TOKEN` (Your PyPI token created in when setting up PyPI)
     - Add to the [Github Variables](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) in the repository:
-      - `REPOSITORY_URL` (The repository you will be uploading to, probably https://pypi.org/legacy/)
+      - `REPOSITORY_URL` (The repository you will be uploading to)
 
 ### Deploying Using GitHub Action
 
