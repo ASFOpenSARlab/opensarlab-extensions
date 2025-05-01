@@ -54,7 +54,7 @@
             curl -L \
               -H "Authorization: token ${{ secrets.PUBLISH_GITHUB_PAT }}" \
               -H "Accept: application/octet-stream" \
-              ${{ steps.populate-release.outputs.release_url }} \
+              ${{ github.event.inputs.release_url }} \
               --output release.zip
             
             # unzip to dist directory
@@ -84,10 +84,10 @@
           if: ${{ success() }}
           run: |
             echo "Verify the final release"
-            echo ${{ steps.finalize-release.outputs.release_url }}
+            echo ${{ github.event.inputs.release_url }}
   
         - name: "** Failure Message **"
           if: ${{ failure() }}
           run: |-
             echo "Failed to Publish the Draft Release Url:"
-            echo ${{ steps.populate-release.outputs.release_url }}
+            echo ${{ github.event.inputs.release_url }}
