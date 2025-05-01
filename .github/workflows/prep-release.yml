@@ -5,7 +5,7 @@ on:  # yamllint disable-line rule:truthy
     inputs:
       environment:
         description: "GitHub environment to use for secrets and variables"
-        default: "test"
+        default: "prod"
         required: true
       version_spec:
         description: "New Version Specifier"
