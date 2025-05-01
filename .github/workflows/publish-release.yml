@@ -75,6 +75,7 @@
           with:
             password: ${{ secrets.PYPI_TOKEN }}
             repository-url: ${{ vars.REPOSITORY_URL }}
+            verbose: true
     
         - name: "** Next Step **"
           if: ${{ success() }}
