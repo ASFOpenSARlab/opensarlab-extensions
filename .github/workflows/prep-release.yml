@@ -10,7 +10,7 @@ on:  # yamllint disable-line rule:truthy
       version_spec:
         description: "New Version Specifier"
         default: "next"
-        required: false
+        required: true
       branch:
         description: "The branch to target"
         required: false
