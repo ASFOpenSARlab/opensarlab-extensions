@@ -54,7 +54,7 @@
 
         - name: Download all assets from release
           run: |
-            gh release download ${{ github.event.inputs.tag }} --dir dist
+            gh release download ${{ github.event.inputs.tag }} --dir dist --pattern "*.tar.gz" --pattern "*py3-none-any.whl "
   
         # - name: Finalize Release
         #   id: finalize-release
