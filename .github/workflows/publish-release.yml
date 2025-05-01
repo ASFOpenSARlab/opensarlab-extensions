@@ -7,6 +7,9 @@
           description: "GitHub environment to use for secrets and variables"
           default: "test"
           required: true
+        tag:
+          description: "Tag of release to publish"
+          required: true
         branch:
           description: "The target branch"
           required: false
@@ -39,13 +42,10 @@
         #     branch: ${{ github.event.inputs.branch }}
         #     release_url: ${{ github.event.inputs.release_url }}
         #     steps_to_skip: ${{ github.event.inputs.steps_to_skip }}
-        
-        - name: Debug
-          run: echo ${{ github.event.inputs.release_tag }}
 
         - uses: robinraju/release-downloader@v1
           with:
-            tag: ${{ github.event.inputs.release_tag }}
+            tag: ${{ github.event.inputs.tag }}
             out-file-path: dist
   
         # - name: Finalize Release
