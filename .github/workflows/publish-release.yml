@@ -1,53 +1,53 @@
 ---
-  name: "Step 2: Publish Release"
-  on:  # yamllint disable-line rule:truthy
-    workflow_dispatch:
-      inputs:
-        environment:
-          description: "GitHub environment to use for secrets and variables"
-          default: "prod"
-          required: true
-        tag:
-          description: "Tag of release to publish"
-          required: true
-        release_url:
-          description: "The URL of the draft GitHub release"
-          required: false
-  
-  jobs:
-    publish_release:
-      runs-on: ubuntu-latest
-      environment: ${{ github.event.inputs.environment }}
-      permissions:
-        # This is useful if you want to use PyPI trusted publisher
-        # and NPM provenance
-        id-token: write
-      steps:
-        - name: Checkout Code
-          uses: actions/checkout@v4
-  
-        - name: Authenticate GitHub CLI
-          run: echo "${{ secrets.PUBLISH_GITHUB_PAT }}" | gh auth login --with-token
+name: "Step 2: Publish Release"
+on:  # yamllint disable-line rule:truthy
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "GitHub environment to use for secrets and variables"
+        default: "prod"
+        required: true
+      tag:
+        description: "Tag of release to publish"
+        required: true
+      release_url:
+        description: "The URL of the draft GitHub release"
+        required: false
 
-        - name: Download all assets from release
-          run: |
-            gh release download ${{ github.event.inputs.tag }} --dir dist --pattern "*.tar.gz" --pattern "*py3-none-any.whl "
-          
-        - name: Publish package distributions to PyPI
-          uses: pypa/gh-action-pypi-publish@release/v1
-          with:
-            password: ${{ secrets.PYPI_TOKEN }}
-            repository-url: ${{ vars.REPOSITORY_URL }}
-            verbose: true
-    
-        - name: "** Next Step **"
-          if: ${{ success() }}
-          run: |
-            echo "Verify the final release"
-            echo ${{ github.event.inputs.release_url }}
-  
-        - name: "** Failure Message **"
-          if: ${{ failure() }}
-          run: |-
-            echo "Failed to Publish the Draft Release Url:"
-            echo ${{ github.event.inputs.release_url }}
+jobs:
+  publish_release:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment }}
+    permissions:
+      # This is useful if you want to use PyPI trusted publisher
+      # and NPM provenance
+      id-token: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Authenticate GitHub CLI
+        run: echo "${{ secrets.PUBLISH_GITHUB_PAT }}" | gh auth login --with-token
+
+      - name: Download all assets from release
+        run: |
+          gh release download ${{ github.event.inputs.tag }} --dir dist --pattern "*.tar.gz" --pattern "*py3-none-any.whl "
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_TOKEN }}
+          repository-url: ${{ vars.REPOSITORY_URL }}
+          verbose: true
+
+      - name: "** Next Step **"
+        if: ${{ success() }}
+        run: |
+          echo "Verify the final release"
+          echo ${{ github.event.inputs.release_url }}
+
+      - name: "** Failure Message **"
+        if: ${{ failure() }}
+        run: |-
+          echo "Failed to Publish the Draft Release Url:"
+          echo ${{ github.event.inputs.release_url }}
