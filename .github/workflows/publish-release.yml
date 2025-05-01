@@ -48,17 +48,16 @@
         #     tag: ${{ github.event.inputs.tag }}
         #     out-file-path: dist
         #     fileName: '*'
-        - name: Download Draft Release
+        
+        - name: Set up GitHub CLI
+          uses: cli/cli-action@v2
+
+        - name: Authenticate GitHub CLI
+          run: echo "${{ secrets.PUBLISH_GITHUB_PAT }}" | gh auth login --with-token
+
+        - name: Download all assets from release
           run: |
-            # download draft release files
-            curl -L \
-              -H "Authorization: token ${{ secrets.PUBLISH_GITHUB_PAT }}" \
-              -H "Accept: application/octet-stream" \
-              ${{ github.event.inputs.release_url }} \
-              --output release.zip
-            
-            # unzip to dist directory
-            unzip release.zip -d dist/
+            gh release download ${{ github.event.inputs.tag }} --dir dist
   
         # - name: Finalize Release
         #   id: finalize-release
