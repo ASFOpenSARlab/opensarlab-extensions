@@ -47,6 +47,7 @@
           with:
             tag: ${{ github.event.inputs.tag }}
             out-file-path: dist
+            preRelease: true
   
         # - name: Finalize Release
         #   id: finalize-release
