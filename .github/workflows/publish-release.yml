@@ -43,11 +43,22 @@
         #     release_url: ${{ github.event.inputs.release_url }}
         #     steps_to_skip: ${{ github.event.inputs.steps_to_skip }}
 
-        - uses: robinraju/release-downloader@v1
-          with:
-            tag: ${{ github.event.inputs.tag }}
-            out-file-path: dist
-            fileName: '*'
+        # - uses: robinraju/release-downloader@v1
+        #   with:
+        #     tag: ${{ github.event.inputs.tag }}
+        #     out-file-path: dist
+        #     fileName: '*'
+        - name: Download Draft Release
+          run: |
+            # download draft release files
+            curl -L \
+              -H "Authorization: token ${{ secrets.PUBLISH_GITHUB_PAT }}" \
+              -H "Accept: application/octet-stream" \
+              ${{ steps.populate-release.outputs.release_url }} \
+              --output release.zip
+            
+            # unzip to dist directory
+            unzip release.zip -d dist/
   
         # - name: Finalize Release
         #   id: finalize-release
