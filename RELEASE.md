@@ -72,6 +72,7 @@ npm publish --access public
     - Save your PyPI token for when setting up your GitHub environment
 
 - Create GitHub Personal Access Token (PAT)
+
   - Go to GitHub account `settings`
   - Scroll down to `Developer Settings`
   - Click `Personal Access Token`
@@ -110,7 +111,7 @@ npm publish --access public
       - For alpha versions append "-alpha.X" to your version where X is your alpha iteration
   - OPTIONAL
     - Set `branch` to the branch you want to target
-    - Set `since` to the date or git reference you want to use the PRs since 
+    - Set `since` to the date or git reference you want to use the PRs since
     - Set `since_last_stable` if you only want to use PRs since the last stable release
     - Set `steps_to_skip` to a comma separated list of steps you want to skip in the release population step
 - Run with workflow_dispatch `Step 2: Publish Release`
