@@ -10,9 +10,6 @@ on:  # yamllint disable-line rule:truthy
       tag:
         description: "Tag of release to publish"
         required: true
-      release_url:
-        description: "The URL of the draft GitHub release"
-        required: false
 
 jobs:
   publish_release:
@@ -43,11 +40,9 @@ jobs:
       - name: "** Next Step **"
         if: ${{ success() }}
         run: |
-          echo "Verify the final release"
-          echo ${{ github.event.inputs.release_url }}
+          echo "Success! Verify the final release"
 
       - name: "** Failure Message **"
         if: ${{ failure() }}
         run: |-
-          echo "Failed to Publish the Draft Release Url:"
-          echo ${{ github.event.inputs.release_url }}
+          echo "Failed to Publish the Release with tag ${{ github.event.inputs.tag }}"
