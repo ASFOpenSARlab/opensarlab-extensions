@@ -1,6 +1,6 @@
 {
     "name": "opensarlab_frontend",
-    "version": "1.5.2-a3",
+    "version": "1.5.2-a4",
     "description": "A JupyterLab extension.",
     "keywords": [
         "jupyter",
