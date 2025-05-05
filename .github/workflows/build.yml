@@ -10,6 +10,8 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EXTENSION_NAME: "opensarlab_frontend"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -32,10 +34,10 @@ jobs:
           python -m pip install .[test]
 
           jupyter server extension list
-          jupyter server extension list 2>&1 | grep -ie "opensarlab_frontend.*OK"
+          jupyter server extension list 2>&1 | grep -ie "$EXTENSION_NAME.*OK"
 
           jupyter labextension list
-          jupyter labextension list 2>&1 | grep -ie "opensarlab_frontend.*OK"
+          jupyter labextension list 2>&1 | grep -ie "$EXTENSION_NAME.*OK"
           python -m jupyterlab.browser_check
 
       - name: Package the extension
@@ -44,13 +46,13 @@ jobs:
 
           pip install build
           python -m build
-          pip uninstall -y "opensarlab_frontend" jupyterlab
+          pip uninstall -y "$EXTENSION_NAME" jupyterlab
 
       - name: Upload extension packages
         uses: actions/upload-artifact@v4
         with:
           name: extension-artifacts
-          path: dist/opensarlab_frontend*
+          path: dist/$EXTENSION_NAME*
           if-no-files-found: error
 
   python-linting:
@@ -89,13 +91,13 @@ jobs:
           sudo rm -rf $(which node)
           sudo rm -rf $(which node)
 
-          pip install "jupyterlab>=4.0.0,<5" opensarlab_frontend*.whl
+          pip install "jupyterlab>=4.0.0,<5" $EXTENSION_NAME*.whl
 
           jupyter server extension list
-          jupyter server extension list 2>&1 | grep -ie "opensarlab_frontend.*OK"
+          jupyter server extension list 2>&1 | grep -ie "$EXTENSION_NAME.*OK"
 
           jupyter labextension list
-          jupyter labextension list 2>&1 | grep -ie "opensarlab_frontend.*OK"
+          jupyter labextension list 2>&1 | grep -ie "$EXTENSION_NAME.*OK"
           python -m jupyterlab.browser_check --no-browser-test
 
   check_links:
