@@ -10,6 +10,8 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      EXTENSION_NAME: ${{ steps.get-ext-name.outputs.EXTENSION_NAME }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -18,6 +20,7 @@ jobs:
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
       - name: Get Extension Name
+        id: get-ext-name
         run: |
           sudo apt-get install jq
           EXTENSION_NAME=$(jq -r .name < package.json)
@@ -93,13 +96,6 @@ jobs:
         with:
           name: extension-artifacts
 
-      - name: Get Extension Name
-        run: |
-          sudo apt-get install jq
-          EXTENSION_NAME=$(jq -r .name < package.json)
-          echo "Extension name: $EXTENSION_NAME"
-          echo "EXTENSION_NAME=$EXTENSION_NAME" >> $GITHUB_ENV
-
       - name: Install and Test
         run: |
           set -eux
@@ -107,13 +103,13 @@ jobs:
           sudo rm -rf $(which node)
           sudo rm -rf $(which node)
 
-          pip install "jupyterlab>=4.0.0,<5" $EXTENSION_NAME*.whl
+          pip install "jupyterlab>=4.0.0,<5" ${{ needs.build.outputs.EXTENSION_NAME }}*.whl
 
           jupyter server extension list
-          jupyter server extension list 2>&1 | grep -ie "$EXTENSION_NAME.*OK"
+          jupyter server extension list 2>&1 | grep -ie "${{ needs.build.outputs.EXTENSION_NAME }}.*OK"
 
           jupyter labextension list
-          jupyter labextension list 2>&1 | grep -ie "$EXTENSION_NAME.*OK"
+          jupyter labextension list 2>&1 | grep -ie "${{ needs.build.outputs.EXTENSION_NAME }}.*OK"
           python -m jupyterlab.browser_check --no-browser-test
 
   check_links:
