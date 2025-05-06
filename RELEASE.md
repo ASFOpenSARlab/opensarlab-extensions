@@ -59,7 +59,9 @@ npm publish --access public
 ## Automated releases with GitHub Actions
 
 ### ⚙️ Setting up your project to deploy using PyPI Trusted Publisher ⚙️
+
 #### Set up PyPI
+
 - Create PyPI project
 - In Manage mode on PyPI project, click `Publishing` and add new GitHub Trusted Publisher
   - Set Workflow name to `publish-release.yml`
@@ -70,6 +72,7 @@ npm publish --access public
   - Save your PyPI token for when setting up your GitHub environment
 
 #### Create GitHub Personal Access Token (PAT)
+
 - Go to GitHub account `settings`
 - Scroll down to `Developer Settings`
 - Click `Personal Access Token`
@@ -87,16 +90,17 @@ npm publish --access public
 - Save your token for when setting up your GitHub environment
 
 #### Set up GitHub Environment
-  - Create a [GitHub Environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment)
-    - Go to your repository settings
-    - Under `Code and automation` select environment
-    - Click `New Environment` and provide a name
-  - In your GitHub Environment
-    - Add token to the [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in the repository:
-      - `PUBLISH_GITHUB_PAT` (Your GitHub PAT)
-      - `PYPI_TOKEN` (Your PyPI token created in when setting up PyPI)
-    - Add to the [Github Variables](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) in the repository:
-      - `REPOSITORY_URL` (The repository you will be uploading to)
+
+- Create a [GitHub Environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment)
+  - Go to your repository settings
+  - Under `Code and automation` select environment
+  - Click `New Environment` and provide a name
+- In your GitHub Environment
+  - Add token to the [Github Secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) in the repository:
+    - `PUBLISH_GITHUB_PAT` (Your GitHub PAT)
+    - `PYPI_TOKEN` (Your PyPI token created in when setting up PyPI)
+  - Add to the [Github Variables](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) in the repository:
+    - `REPOSITORY_URL` (The repository you will be uploading to)
 
 ### ▶️ Deploying Using GitHub Action ▶️
 
