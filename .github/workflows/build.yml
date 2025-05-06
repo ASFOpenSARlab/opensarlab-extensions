@@ -65,11 +65,13 @@ jobs:
     with:
       # The osl-utils docker tag. Can also be `dev`, initials, etc. Should match the tag above in prod.
       osl-utils-tag: v0.0.9
+
   shell-linting:
     uses: ASFOpenSARlab/osl-utils/.github/workflows/reusable-code-quality-shell.yaml@v0.0.9
     with:
       # The osl-utils docker tag. Can also be `dev`, initials, etc. Should match the tag above in prod.
       osl-utils-tag: v0.0.9
+
   yaml-linting:
     uses: ASFOpenSARlab/osl-utils/.github/workflows/reusable-code-quality-yaml.yaml@v0.0.9
     with:
@@ -86,9 +88,18 @@ jobs:
         with:
           python-version: '3.9'
           architecture: 'x64'
+
       - uses: actions/download-artifact@v4
         with:
           name: extension-artifacts
+
+      - name: Get Extension Name
+        run: |
+          sudo apt-get install jq
+          EXTENSION_NAME=$(jq -r .name < package.json)
+          echo "Extension name: $EXTENSION_NAME"
+          echo "EXTENSION_NAME=$EXTENSION_NAME" >> $GITHUB_ENV
+
       - name: Install and Test
         run: |
           set -eux
