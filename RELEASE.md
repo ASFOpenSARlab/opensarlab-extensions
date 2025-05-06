@@ -58,38 +58,35 @@ npm publish --access public
 
 ## Automated releases with GitHub Actions
 
-### Setting up your project to deploy using PyPI Trusted Publisher
+### ⚙️ Setting up your project to deploy using PyPI Trusted Publisher ⚙️
+#### Set up PyPI
+- Create PyPI project
+- In Manage mode on PyPI project, click `Publishing` and add new GitHub Trusted Publisher
+  - Set Workflow name to `publish-release.yml`
+  - Set Environment name to the environment your action will be using (Usually prod or test)
+- Create access token for your User
+  - In Account Settings, click on `Add API token`
+  - Set its scope to your project only
+  - Save your PyPI token for when setting up your GitHub environment
 
-- Set up PyPI
+#### Create GitHub Personal Access Token (PAT)
+- Go to GitHub account `settings`
+- Scroll down to `Developer Settings`
+- Click `Personal Access Token`
+  - Select `Fine-grained tokens`
+- `Generate new token` in the upper right
+- Give the token a name and description
+- Set `Resource Owner` to the GitHub organization or user who owns the repository
+- Set `Repository Access` to Only select repositories
+  - Select your repository from the dropdown
+- Give `Repository Permissions` read and write access to
+  - Contents
+  - Issues
+  - Pull Requests
+  - Workflows
+- Save your token for when setting up your GitHub environment
 
-  - Create PyPI project
-  - In Manage mode on PyPI project, click `Publishing` and add new GitHub Trusted Publisher
-    - Set Workflow name to `publish-release.yml`
-    - Set Environment name to the environment your action will be using (Usually prod or test)
-  - Create access token for your User
-    - In Account Settings, click on `Add API token`
-    - Set its scope to your project only
-    - Save your PyPI token for when setting up your GitHub environment
-
-- Create GitHub Personal Access Token (PAT)
-
-  - Go to GitHub account `settings`
-  - Scroll down to `Developer Settings`
-  - Click `Personal Access Token`
-    - Select `Fine-grained tokens`
-  - `Generate new token` in the upper right
-  - Give the token a name and description
-  - Set `Resource Owner` to the GitHub organization or user who owns the repository
-  - Set `Repository Access` to Only select repositories
-    - Select your repository from the dropdown
-  - Give `Repository Permissions` read and write access to
-    - Contents
-    - Issues
-    - Pull Requests
-    - Workflows
-  - Save your token for when setting up your GitHub environment
-
-- Set up GitHub Environment
+#### Set up GitHub Environment
   - Create a [GitHub Environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment)
     - Go to your repository settings
     - Under `Code and automation` select environment
@@ -101,8 +98,13 @@ npm publish --access public
     - Add to the [Github Variables](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables) in the repository:
       - `REPOSITORY_URL` (The repository you will be uploading to)
 
-### Deploying Using GitHub Action
+### ▶️ Deploying Using GitHub Action ▶️
 
+- PREREQUISITES
+  - Your extension package including `package.json` file
+  - [Set up PyPI](#set-up-pypi)
+  - [Set up GitHub Personal Access Token](#create-github-personal-access-token-pat)
+  - [Set up GitHub Environment](#set-up-github-environment)
 - Go to GitHub Actions panel
 - Run with workflow_dispatch `Step 1: Prep Release`
   - REQUIRED
