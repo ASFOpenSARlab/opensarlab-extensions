@@ -10,14 +10,19 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      EXTENSION_NAME: "opensarlab_frontend"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Base Setup
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
+      
+      - name: Get Extension Name
+        run: |
+          sudo apt-get install jq
+          EXTENSION_NAME=$(jq -r .name < package.json)
+          echo "Extension name: $EXTENSION_NAME"
+          echo "EXTENSION_NAME=$EXTENSION_NAME" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: python -m pip install -U "jupyterlab>=4.0.0,<5"
@@ -52,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: extension-artifacts
-          path: dist/$EXTENSION_NAME*
+          path: dist/*
           if-no-files-found: error
 
   python-linting:
