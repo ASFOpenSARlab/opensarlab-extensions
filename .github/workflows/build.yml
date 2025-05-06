@@ -16,7 +16,7 @@ jobs:
 
       - name: Base Setup
         uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
-      
+
       - name: Get Extension Name
         run: |
           sudo apt-get install jq
