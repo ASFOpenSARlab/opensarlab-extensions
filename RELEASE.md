@@ -73,6 +73,7 @@ npm publish --access public
 
 #### Create GitHub Personal Access Token (PAT)
 
+- The following should be completed on a GitHub account all collaborators in the repo have access to (eg: machine user)
 - Go to GitHub account `settings`
 - Scroll down to `Developer Settings`
 - Click `Personal Access Token`
@@ -109,6 +110,8 @@ npm publish --access public
   - [Set up PyPI](#set-up-pypi)
   - [Set up GitHub Personal Access Token](#create-github-personal-access-token-pat)
   - [Set up GitHub Environment](#set-up-github-environment)
+  - Read and write permissions to the branch you are deploying from
+    - If you have branch protections requiring a pull request to merge into the branch you are deploying from (eg: main), allow the user with your GitHub PAT to bypass required pull requests in the `Allow specified actors to bypass required pull requests` section in your branch protection rules
 - Go to GitHub Actions panel
 - Run with workflow_dispatch `Step 1: Prep Release`
   - REQUIRED
