@@ -14,8 +14,7 @@ class DocsAnchorWidget extends Widget {
 
     this.hyperlink = document.createElement('a');
     this.hyperlink.text = 'OpenSARlab Docs';
-    this.hyperlink.href =
-      'https://opensarlab-docs.asf.alaska.edu';
+    this.hyperlink.href = 'https://opensarlab-docs.asf.alaska.edu';
     this.hyperlink.target = 'blank';
     this.addClass('opensarlab-doc-link-widget');
     this.addClass('opensarlab-frontend-object');
