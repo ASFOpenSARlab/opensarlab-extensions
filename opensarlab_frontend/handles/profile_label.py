@@ -19,12 +19,25 @@ class RouteHandler(APIHandler):
         """
         /opensarlab-frontend/opensarlab-profile-label
         """
+        lab_friendly_name = os.environ.get("OPENSCIENCELAB_LAB_FRIENDLY_NAME", "")
         profile_name = os.environ.get("OPENSARLAB_PROFILE_NAME", "")
+
+        if not lab_friendly_name:
+            logging.warning(
+                "Environ variable 'OPENSCIENCELAB_LAB_FRIENDLY_NAME' not found."
+            )
 
         if not profile_name:
             logging.warning("Environ variable 'OPENSARLAB_PROFILE_NAME' not found.")
 
-        self.finish(json.dumps({"data": profile_name}))
+        if lab_friendly_name and profile_name:
+            data = f"{lab_friendly_name}: {profile_name}"
+        elif not lab_friendly_name and profile_name:
+            data = f"{profile_name}"
+        else:
+            data = ""
+
+        self.finish(json.dumps({"data": data}))
 
 
 def setup_handlers(base_url, url_path=None):
