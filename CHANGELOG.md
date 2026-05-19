@@ -2,6 +2,12 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 1.5.4
+
+No merged PRs
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 1.5.4a1
 
 ([Full Changelog](https://github.com/ASFOpenSARlab/opensarlab-extensions/compare/v1.5.3...3984c2ae525f19a215c531c8017df7b93f01ef81))
@@ -15,8 +21,6 @@
 ([GitHub contributors page for this release](https://github.com/ASFOpenSARlab/opensarlab-extensions/graphs/contributors?from=2025-08-15&to=2025-08-16&type=c))
 
 [@emlundell](https://github.com/search?q=repo%3AASFOpenSARlab%2Fopensarlab-extensions+involves%3Aemlundell+updated%3A2025-08-15..2025-08-16&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 1.5.3
 
